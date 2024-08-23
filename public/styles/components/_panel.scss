@@ -1,0 +1,161 @@
+main.konten {
+  top: 4rem;
+
+  .sidebar {
+    max-height: 100vh;
+  }
+
+  .avatar-profile {
+    width: 75px;
+    height: 75px;
+
+    .avatar-image {
+      background-position: center;
+    }
+  }
+
+  .nama-user {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    color: #01408e;
+  }
+
+  li > a {
+    color: #1e1e1e;
+    font-weight: 400;
+    font-size: 18px;
+    margin-left: 5px;
+    line-height: 27px;
+    border-color: #01408e;
+
+    & > svg {
+      color: #1e1e1e;
+      fill: #1e1e1e;
+      height: 35px;
+
+      &:hover {
+        color: #353535;
+        fill: #353535;
+      }
+    }
+
+    & > span.title-menu-bottom {
+      font-size: 12px;
+    }
+
+    & > i {
+      color: #1e1e1e;
+
+      &:hover {
+        color: #353535;
+      }
+
+      &.active {
+        color: #01408e;
+        fill: #01408e;
+
+        &:hover {
+          color: #0057c2;
+          fill: #0057c2;
+        }
+      }
+    }
+
+    &:hover {
+      color: #353535;
+    }
+
+    &.active {
+      color: #01408e;
+      font-weight: 500;
+
+      & > i {
+        color: #01408e;
+        fill: #01408e;
+      }
+
+      & > svg {
+        color: #01408e;
+        fill: #01408e;
+
+        &:hover {
+          color: #0057c2;
+          fill: #0057c2;
+        }
+      }
+
+      &:hover {
+        color: #0057c2;
+      }
+
+      & > span.title-menu-bottom {
+        font-weight: 600;
+      }
+    }
+
+    &.active-line {
+      border-right: 3px solid #01408e;
+    }
+  }
+}
+
+.tanggal {
+  opacity: 0.5;
+  border: 1px solid #dadada;
+  border-radius: 4px;
+}
+
+.summary-chart {
+  z-index: 1;
+}
+
+.peringkat-pegawai {
+  z-index: 2;
+}
+
+.mobile-layout {
+  z-index: 3000;
+  bottom: 30px;
+  right: 0;
+  left: 0;
+  padding: 0 30px;
+
+  .card-bottom-mobile {
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 20px;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+  }
+}
+
+.icon-aksi {
+  transition-duration: 0.2s;
+
+  &:hover {
+    transform: scale(0.95);
+    -webkit-transform: scale(0.95);
+    -moz-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    -o-transform: scale(0.95);
+}
+}
+
+footer {
+  margin-bottom: 140px;
+
+  & ~ a {
+    color: #1e1e1e;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  footer {
+    margin-bottom: 150px;
+  }
+}
