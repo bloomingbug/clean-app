@@ -24,6 +24,6 @@ class Media extends Model
 
     public function link(): Attribute
     {
-        return Attribute::make(get: fn($link) => asset('storage/media/', $link));
+        return Attribute::make(get: fn ($link) => asset('storage/media/', $link));
     }
 }

@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('fundings', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string("no")->index();
-            $table->string("name")->index();
-            $table->string("email");
-            $table->unsignedBigInteger("amount");
+            $table->string('no')->index();
+            $table->string('name')->index();
+            $table->string('email');
+            $table->unsignedBigInteger('amount');
             $table->boolean('is_anonymous')->default(false);
-            $table->string("message")->nullable();
-            $table->enum("status", ["pending", "success", "failed", "expired"]);
-            $table->string("snap_token")->nullable();
+            $table->string('message')->nullable();
+            $table->enum('status', ['pending', 'success', 'failed', 'expired']);
+            $table->string('snap_token')->nullable();
             $table->foreignUuid('campaign_id');
             $table->uuid('donatur_id');
             $table->foreign('donatur_id')->references('id')->on('users');

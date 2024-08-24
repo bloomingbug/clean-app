@@ -29,7 +29,7 @@ class Profile extends Model
         'updated_at',
     ];
 
-    public function city() 
+    public function city()
     {
         return $this->belongsTo(City::class, 'city_id', 'id');
     }

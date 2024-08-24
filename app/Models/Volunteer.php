@@ -32,7 +32,7 @@ class Volunteer extends Model
         'deleted_by',
         'deleted_at',
     ];
-    
+
     protected $casts = [
         'presence_at' => 'datetime',
     ];

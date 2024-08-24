@@ -11,16 +11,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasUuids;
+    use HasApiTokens, HasFactory, HasRoles, HasUuids, Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'username',
         'name',
@@ -32,11 +28,6 @@ class User extends Authenticatable
         'deleted_at',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'id',
         'password',
@@ -47,11 +38,6 @@ class User extends Authenticatable
         'deleted_at',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -60,10 +46,19 @@ class User extends Authenticatable
     {
         return 'username';
     }
-    
+
+    public function before(User $user, string $ability): ?bool
+    {
+        if ($user->hasRole('Super Admin')) {
+            return true;
+        }
+
+        return null;
+    }
+
     public function avatar(): Attribute
     {
-        return Attribute::make(get: fn($avatar) => $avatar ? asset('storage/profile/', $avatar) : null);
+        return Attribute::make(get: fn ($avatar) => $avatar ? asset('storage/profile/', $avatar) : null);
     }
 
     public function profile()

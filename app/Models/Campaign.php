@@ -56,9 +56,9 @@ class Campaign extends Model
         return 'slug';
     }
 
-    public function cover():Attribute
+    public function cover(): Attribute
     {
-        return Attribute::make(get: fn($cover) => $cover ? asset('storage/media/', $cover) : null);
+        return Attribute::make(get: fn ($cover) => $cover ? asset('storage/media/', $cover) : null);
     }
 
     public function media()
