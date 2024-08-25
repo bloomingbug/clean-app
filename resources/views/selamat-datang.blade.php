@@ -26,10 +26,10 @@
               <a href="#" class="btn kirim w-100"> Selanjutnya </a>
               <hr />
               <div class="d-flex align-items-center">
-                <img src="{{ asset('images/logo-disdik.png') }}" alt="Logo Disdik"class="logo-disdik-footer" />
+                <img src="{{ asset('images/Log-Clean-App.png') }}" alt="Logo Disdik"class="logo-disdik-footer" />
                 <div class="ms-2">
                   <p class="mb-0 text-footer lh-sm">Survei dilakukan oleh</p>
-                  <p class="fw-bolder mb-0 text-footer lh-sm">Dinas Pendidikan Kabupaten Bekasi</p>
+                  <p class="fw-bolder mb-0 text-footer lh-sm">Admin Clean App</p>
                 </div>
               </div>
             </div>
