@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="{{ asset('styles/style.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <title>Buku Tamu - Clean App</title>
+    <title>Buku Relawan - Clean App</title>
   </head>
   <body class="survei-page">
     <main class="container">
@@ -20,11 +20,11 @@
           <div class="card rounded-3">
             <div class="card-body d-flex justify-content-center flex-column">
               <img
-                src="{{ asset('images/logo-disdik.png') }}" alt="Logo-disdik"
+                src="{{ asset('images/Log-Clean-App.png') }}" alt="Logo-clean app"
                 class="logo-disdik mx-auto"
               />
               <hr />
-              <h6 class="card-title text-center fs-5 fw-bolder">Buku Tamu</h6>
+              <h6 class="card-title text-center fs-5 fw-bolder">Daftar Relawan</h6>
               <form action="proses.php" method="post">
                 <div class="form-group my-1">
                   <label for="name">Nama Lengkap</label>
@@ -38,7 +38,7 @@
                   />
                 </div>
                 <div class="form-group my-1">
-                  <label for="nik">NIK</label>
+                  <label for="nik">E-Mail</label>
                   <input
                     type="text"
                     class="form-control"
@@ -48,7 +48,7 @@
                     required
                   />
                 </div>
-                <div class="form-group my-1">
+                {{-- <div class="form-group my-1">
                   <label for="bagian">Bagian</label>
                   <select class="form-select" id="bagian">
                     <option selected disabled hidden>Pilih...</option>
@@ -56,15 +56,15 @@
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                   </select>
-                </div>
+                </div> --}}
                 <div class="form-group my-1">
-                  <label for="tujuan">Keperluan</label>
+                  <label for="tujuan">Alasan Mendaftar?</label>
                   <textarea
                     class="form-control"
                     id="tujuan"
                     name="tujuan"
                     rows="2"
-                    placeholder="Tujuan Kunjungan..."
+                    placeholder="Alasan Jadi Relawan..."
                     required
                   ></textarea>
                 </div>

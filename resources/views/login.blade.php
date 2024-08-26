@@ -20,7 +20,7 @@
           <div class="card rounded-3">
             <div class="card-body d-flex justify-content-center flex-column">
               <img
-                src="{{ asset('images/logo-disdik.png') }}" alt="Logo Disdik"
+                src="{{ asset('images/Log-Clean-App.png') }}" alt="Logo Disdik"
                 class="logo-disdik mx-auto"
               />
               <h4 class="mb-0 mt-2 fs-6 text-center">Sistem Penilaian</h4>
