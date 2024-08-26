@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enum\GendersEnum;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -18,7 +19,7 @@ class UserSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'superadmin@mail.com',
             'password' => bcrypt('password'),
-            'gender' => 'M',
+            'gender' => GendersEnum::MALE,
         ]);
 
         $admin = User::create([
@@ -26,7 +27,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@mail.com',
             'password' => bcrypt('password'),
-            'gender' => 'M',
+            'gender' => GendersEnum::FEMALE,
         ]);
 
         $user = User::create([
@@ -34,7 +35,7 @@ class UserSeeder extends Seeder
             'name' => 'User',
             'email' => 'user@mail.com',
             'password' => bcrypt('password'),
-            'gender' => 'M',
+            'gender' => GendersEnum::MALE,
         ]);
 
         $roleSuperAdmin = Role::where('name', 'Super Admin')->first();

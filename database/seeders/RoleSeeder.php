@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enum\RolesEnum;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -10,11 +11,14 @@ class RoleSeeder extends Seeder
 {
     public function run(): void
     {
-        $superadmin = Role::create(['name' => 'Super Admin', 'guard_name' => 'web']);
-        $admin = Role::create(['name' => 'Admin', 'guard_name' => 'web']);
-        $user = Role::create(['name' => 'User', 'guard_name' => 'web']);
+        $roles = RolesEnum::getRoles();
 
-        $permissions = Permission::all();
-        $admin->syncPermissions($permissions);
+        foreach ($roles as $role) {
+            $roleDB = Role::create(['name' => $role, 'guard_name' => 'web']);
+
+            if ($role === RolesEnum::ADMIN) {
+                $roleDB->syncPermissions(Permission::all());
+            }
+        }
     }
 }

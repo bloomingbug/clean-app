@@ -1,12 +1,13 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 if (! function_exists('generateSlug')) {
 
-    function generateSlug($model, string $text, bool $isHaveTrash = false): string
+    function generateSlug($model, string $value, string $key = 'slug', bool $isHaveTrash = false): string
     {
-        $slug = Str::slug($text, '-', 'id', [
+        $slug = Str::slug(trim($value), '-', 'id', [
             '@' => 'at',
             '&' => 'dan',
             '.' => '',
@@ -14,22 +15,24 @@ if (! function_exists('generateSlug')) {
             "'" => '',
             '?' => '',
         ]);
-        $existSlug = $model::select(['slug', 'created_at'])
+
+        $exist = $model::select([$key, 'created_at'])
             ->when($isHaveTrash, function ($query) {
                 return $query->withTrashed();
             })
-            ->where('slug', 'like', $slug.'%')
+            ->where($key, 'like', $slug . '%')
             ->latest('created_at')
-            ->first()?->slug;
+            ->first()
+            ->toArray();
 
-        if ($existSlug) {
-            $slugArray = (explode('-', $existSlug));
-            $number = (int) $slugArray[count($slugArray) - 1];
-            if ($number === 0) {
-                $slug = $slug.'-'.($number + 1);
+        if (array_key_exists($key, $exist)) {
+            $slugArray = (explode('-', $exist[$key]));
+            if (!is_numeric($slugArray[count($slugArray) - 1])) {
+                $slug = $slug . '-1';
             } else {
+                $number = (int) $slugArray[count($slugArray) - 1];
                 array_pop($slugArray);
-                $slug = implode('-', $slugArray).'-'.($number + 1);
+                $slug = implode('-', $slugArray) . '-' . ($number + 1);
             }
         }
 
