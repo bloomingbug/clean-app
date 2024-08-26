@@ -15,17 +15,21 @@ $(document).ready(function () {
         $('button.btn[type="submit"]').html("Loading...");
         $("#alert").css("display", "none");
 
+        const name = $("#name").val();
         const email = $("#email").val();
         const password = $("#password").val();
-        const remember = $("#remember").is(":checked") ? 1 : 0;
+        const password_confirmation = $("#password_confirmation").val();
+        const gender = $('input[name="gender"]:checked').val();
 
         $.ajax({
-            url: "/login",
+            url: "/register",
             type: "POST",
             data: {
+                name: name,
                 email: email,
                 password: password,
-                remember: remember,
+                password_confirmation: password_confirmation,
+                gender: gender,
             },
             success: function (response) {
                 window.location.href = response.data.redirect;
@@ -48,7 +52,7 @@ $(document).ready(function () {
             },
             complete: function () {
                 $('button.btn[type="submit"]').attr("disabled", false);
-                $('button.btn[type="submit"]').html("Masuk");
+                $('button.btn[type="submit"]').html("Daftar");
             },
         });
     });
