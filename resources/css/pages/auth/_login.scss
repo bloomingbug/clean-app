@@ -1,0 +1,27 @@
+.auth-page {
+    width: 100%;
+    background: linear-gradient(160deg, #00754b 9.26%, #005e3c 76.84%);
+
+    .card {
+        z-index: 1;
+    }
+
+    .illustration {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 0;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .auth-page {
+        .card {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    }
+}

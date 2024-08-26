@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+})->name('home');
+
+Route::middleware('guest')->group(function () {
+    Route::resource('login', LoginController::class)->only(['index', 'store']);
+});
+
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('dashboard', function () {
+        return view('welcome')->name('admin.dashboard');
+    });
 });
