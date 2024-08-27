@@ -12,7 +12,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('auth.login');
+        return view('pages.auth.login');
     }
 
     public function store(Request $request)
@@ -28,7 +28,6 @@ class LoginController extends Controller
         }
 
         try {
-            throw new \Exception('Terjadi kesalahan pada server');
             if (!auth()->attempt($request->only('email', 'password'), $request->remember)) {
                 return new ErrorResource(false, 'Email or password is incorrect', 401);
             }
