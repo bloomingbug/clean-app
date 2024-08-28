@@ -27,14 +27,20 @@
             <a href="" class="link {{ request()->is('/admin/users') ? 'active' :'' }}">
                 <i class="fa-solid fa-user"></i>User
             </a>
+
+            @can('role.index')
             <a href="{{ route('admin.role.index') }}"
                 class="link {{ request()->routeIs('admin.role.index') ? 'active' :'' }}">
                 <i class="fa-solid fa-sitemap"></i>Role
             </a>
+            @endcan
+
+            @can('permission.index')
             <a href="{{ route('admin.permission.index') }}"
                 class="link {{ request()->routeIs('admin.permission.index') ? 'active' :'' }}">
                 <i class="fa-solid fa-shield-halved"></i>Permission
             </a>
+            @endcan
         </div>
     </div>
 </aside>
