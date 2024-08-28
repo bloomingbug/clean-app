@@ -7,7 +7,7 @@
                         alt="Avatar" class="img-fluid avatar-image" />
                 </div>
                 <h6 class="card-title text-center nama-user m-0">{{ $user->name }}</h6>
-                <p class="card-text text-center text-nowrap text-truncate">{{ $user->email }}</p>
+                <p class="card-text text-black text-center text-nowrap text-truncate">{{ $user->email }}</p>
             </a>
 
             <h6 class="fw-bold mt-4 mb-1">Menu</h6>
@@ -27,12 +27,20 @@
             <a href="" class="link {{ request()->is('/admin/users') ? 'active' :'' }}">
                 <i class="fa-solid fa-user"></i>User
             </a>
-            <a href="" class="link {{ request()->is('/admin/roles') ? 'active' :'' }}">
+
+            @can('role.index')
+            <a href="{{ route('admin.role.index') }}"
+                class="link {{ request()->routeIs('admin.role.index') ? 'active' :'' }}">
                 <i class="fa-solid fa-sitemap"></i>Role
             </a>
-            <a href="" class="link {{ request()->is('/admin/permissions') ? 'active' :'' }}">
+            @endcan
+
+            @can('permission.index')
+            <a href="{{ route('admin.permission.index') }}"
+                class="link {{ request()->routeIs('admin.permission.index') ? 'active' :'' }}">
                 <i class="fa-solid fa-shield-halved"></i>Permission
             </a>
+            @endcan
         </div>
     </div>
 </aside>

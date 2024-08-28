@@ -25,6 +25,7 @@
         rel="stylesheet">
     @vite($vite)
 
+
     @stack('head')
 </head>
 
@@ -55,7 +56,8 @@
     <!-- End of Main Content -->
 
     <x-elements.footer.admin-footer />
-    @stack('body')
+    @include('sweetalert::alert')
+
 </body>
 
 </html>
