@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -8,6 +9,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\User\CleanActController;
 use App\Http\Controllers\User\CleanFundController;
 use App\Http\Controllers\User\CleanUpController;
+use App\Http\Controllers\Admin\CleanFundController as AdminCleanFundController;
+use App\Http\Controllers\Admin\CleanActController as AdminCleanActController;
 use App\Http\Controllers\User\ProvinceController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,4 +55,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::resource('role', RoleController::class, ['as' => 'admin', 'except' => ['show']]);
     Route::resource('user', UserController::class, ['as' => 'admin', 'except' => ['show']]);
+
+    Route::put('campaign/{campaign}/approve', [CampaignController::class, 'approve'])->name('admin.campaign.approve');
+    Route::resource('campaign', CampaignController::class, ['as' => 'admin', 'except' => ['show']]);
+
+    Route::get('/fund/{campaign}/edit', [AdminCleanFundController::class, 'edit'])->name('admin.cleanfund.edit');
+    Route::put('/fund/{campaign}', [AdminCleanFundController::class, 'update'])->name('admin.cleanfund.update');
+
+    Route::get('/act/{campaign}/edit', [AdminCleanActController::class, 'edit'])->name('admin.cleanact.edit');
+    Route::put('/act/{campaign}', [AdminCleanActController::class, 'update'])->name('admin.cleanact.update');
 });

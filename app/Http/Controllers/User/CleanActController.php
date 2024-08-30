@@ -15,7 +15,8 @@ class CleanActController extends Controller
 
     public function index()
     {
-        $campaigns = Campaign::where('due_date_volunteer', '!=', null)
+        $campaigns = Campaign::where('is_approved', true)
+            ->where('due_date_volunteer', '!=', null)
             ->when(request('keyword'), function ($query) {
                 return $query->where('title', 'like', '%' . request('keyword') . '%');
             })

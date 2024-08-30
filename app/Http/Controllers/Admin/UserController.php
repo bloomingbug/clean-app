@@ -10,6 +10,14 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:user.index')->only('index');
+        $this->middleware('permission:user.create')->only('create', 'store');
+        $this->middleware('permission:user.edit')->only('edit', 'update');
+        $this->middleware('permission:user.delete')->only('destroy');
+    }
+
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
@@ -17,11 +25,11 @@ class UserController extends Controller
                 ->whereHas('roles', function ($query) {
                     $query->where('name', '!=', 'Super Admin');
                 })
-                // ->when(auth()->user()->hasRole('Admin'), function ($query) {
-                //     return $query->whereHas('roles', function ($query) {
-                //         $query->where('name', '!=', 'Admin');
-                //     });
-                // })
+                ->when(auth()->user()->hasRole('Admin'), function ($query) {
+                    return $query->whereHas('roles', function ($query) {
+                        $query->where('name', '!=', 'Admin');
+                    });
+                })
                 ->orderBy('name')
                 ->get();
 
