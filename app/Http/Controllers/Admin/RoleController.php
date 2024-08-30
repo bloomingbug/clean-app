@@ -75,12 +75,12 @@ class RoleController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             flash()->error($e->getCode() . ' Role gagal ditambahkan');
-            return redirect()->route('admin.role.index');
+            return redirect()->route('admin.role.index')->with('error', $e->getCode() . ' Role gagal ditambahkan');
         }
 
 
         flash()->success('Role berhasil ditambahkan');
-        return redirect()->route('admin.role.index');
+        return redirect()->route('admin.role.index')->with('success', 'Role berhasil ditambahkan');
     }
 
     public function edit(Role $role)
@@ -110,11 +110,11 @@ class RoleController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             flash()->error($e->getCode() . ' Role gagal diedit');
-            return redirect()->route('admin.role.index');
+            return redirect()->route('admin.role.index')->with('error', $e->getCode() . ' Role gagal diedit');
         }
 
         flash()->success('Role berhasil diedit');
-        return redirect()->route('admin.role.index');
+        return redirect()->route('admin.role.index')->with('success', 'Role berhasil diedit');
     }
 
     public function destroy(Role $role)
@@ -122,6 +122,6 @@ class RoleController extends Controller
         $role->delete();
 
         flash()->success('Role berhasil dihapus');
-        return redirect()->route('admin.role.index');
+        return redirect()->route('admin.role.index')->with('success', 'Role berhasil dihapus');
     }
 }

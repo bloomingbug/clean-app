@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\User\CleanActController;
@@ -50,4 +51,5 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('permission', [PermissionController::class, 'index'])->name('admin.permission.index');
 
     Route::resource('role', RoleController::class, ['as' => 'admin', 'except' => ['show']]);
+    Route::resource('user', UserController::class, ['as' => 'admin', 'except' => ['show']]);
 });

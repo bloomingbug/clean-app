@@ -22,11 +22,15 @@
                 <i class="fa-solid fa-file"></i>Report
             </a>
 
+            
             <h6 class="fw-bold mt-4 mb-1">User Management</h6>
             <hr class="my-2" />
-            <a href="" class="link {{ request()->is('/admin/users') ? 'active' :'' }}">
+            @can('user.index')
+            <a href="{{route('admin.user.index')}}" class="link {{ request()->routeIs('admin.user.index') ? 'active' :'' }}">
                 <i class="fa-solid fa-user"></i>User
             </a>
+                
+            @endcan
 
             @can('role.index')
             <a href="{{ route('admin.role.index') }}"
