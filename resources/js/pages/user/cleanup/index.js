@@ -1,3 +1,4 @@
+import "@/css/pages/user/_cleanup.scss";
 import "leaflet/dist/leaflet.css";
 import "leaflet/dist/leaflet.js";
 
@@ -33,18 +34,17 @@ window.handleVote = function handleVote(slug) {
         success: function (data) {
             reload();
         },
-        error: function (data) {
-            console.log(data);
+        error: function (error) {
+            if (error.status == 401) {
+                window.location = "/login";
+            }
+
+            console.log(error.message);
         },
     });
 };
 
 $(document).ready(function () {
-    $("button#vote").click(function (e) {
-        // handleVote(e);
-        console.log("Vote Clicked");
-    });
-
     var map = L.map("map").setView([-3, 115], 5);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -58,8 +58,6 @@ $(document).ready(function () {
         success: function (response) {
             if (response.success && response.data.length > 0) {
                 response.data.forEach(function (campaign) {
-                    console.log(campaign);
-
                     var marker = L.marker([
                         campaign.latitude,
                         campaign.longitude,
@@ -78,8 +76,8 @@ $(document).ready(function () {
 
                         if (link) {
                             link.addEventListener("click", function (e) {
-                                e.preventDefault(); // Menghindari reload halaman atau navigasi
-                                showCampaignModal(campaign); // Menampilkan modal dengan data campaign
+                                e.preventDefault();
+                                showCampaignModal(campaign);
                             });
                         }
                     });

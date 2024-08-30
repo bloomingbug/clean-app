@@ -23,6 +23,7 @@ class Campaign extends Model
         'vote',
         'address',
         'proposed_by_id',
+        'is_approved',
         'approved_by',
         'approved_at',
         'city_id',
@@ -73,5 +74,10 @@ class Campaign extends Model
     public function votes()
     {
         return $this->hasMany(Vote::class, 'campaign_id', 'id');
+    }
+
+    public function volunteers()
+    {
+        return $this->hasMany(Volunteer::class, 'campaign_id', 'id');
     }
 }

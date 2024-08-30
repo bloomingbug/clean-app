@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('address');
             $table->uuid('proposed_by_id');
             $table->foreign('proposed_by_id')->references('id')->on('users');
+            $table->boolean('is_approved')->nullable();
             $table->string('approved_by')->nullable();
             $table->timestamp('approved_at')->nullable();
             $table->string('city_id');

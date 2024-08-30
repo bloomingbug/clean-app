@@ -16,6 +16,7 @@ class CleanUpController extends Controller
     {
         $this->middleware('auth')->only(['create', 'store', 'vote']);
     }
+
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
@@ -29,11 +30,15 @@ class CleanUpController extends Controller
                     return $campaign->city->name . ', ' . $campaign->city->province->name;
                 })
                 ->addColumn('vote', function (Campaign $campaign) {
-                    if ($campaign->votes->contains('user_id', auth()->user()->id)) {
-                        return '<button class="btn btn-primary btn-sm" onClick="handleVote(\'' . $campaign->slug . '\')" >Vote</button>';
-                    } else {
-                        return '<button class="btn btn-outline-primary btn-sm" onClick="handleVote(\'' . $campaign->slug . '\')" >Vote</button>';
+                    // check auth
+                    if (auth()->check()) {
+                        if ($campaign->votes->contains('user_id', auth()->user()->id)) {
+                            return '<button class="btn btn-primary btn-sm" onClick="handleVote(\'' . $campaign->slug . '\')" >Vote</button>';
+                        } else {
+                            return '<button class="btn btn-outline-primary btn-sm" onClick="handleVote(\'' . $campaign->slug . '\')" >Vote</button>';
+                        }
                     }
+                    return '<button class="btn btn-outline-primary btn-sm" onClick="handleVote(\'' . $campaign->slug . '\')" >Vote</button>';
                 })
                 ->rawColumns(['vote'])
                 ->make(true);

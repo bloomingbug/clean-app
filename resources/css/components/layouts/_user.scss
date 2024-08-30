@@ -125,6 +125,33 @@
             z-index: 999;
         }
     }
+
+    .card {
+        .card-image-wrapper {
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 0.75rem 0.75rem 0 0;
+            -webkit-border-radius: 0.75rem 0.75rem 0 0;
+            -moz-border-radius: 0.75rem 0.75rem 0 0;
+            -ms-border-radius: 0.75rem 0.75rem 0 0;
+            -o-border-radius: 0.75rem 0.75rem 0 0;
+
+            img.card-img {
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                min-width: 100%;
+                -o-object-fit: cover;
+                object-fit: cover;
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+        }
+    }
 }
 
 @media screen and (min-width: 768px) {

@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\User\CleanActController;
+use App\Http\Controllers\User\CleanFundController;
 use App\Http\Controllers\User\CleanUpController;
 use App\Http\Controllers\User\ProvinceController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +28,9 @@ Route::get('/campaign/location', [CleanUpController::class, 'location'])->name('
 Route::get('/campaign/{campaign}', [CleanUpController::class, 'show'])->name('cleanup.show');
 Route::put('/campaign/{campaign}/vote', [CleanUpController::class, 'vote'])->name('cleanup.vote');
 
+Route::get('/cleanfund', [CleanFundController::class, 'index'])->name('cleanfund.index');
+Route::get('/cleanact', [CleanActController::class, 'index'])->name('cleanact.index');
+
 Route::get('/province/{id}', [ProvinceController::class, 'show'])->name('province.show');
 
 Route::middleware('guest')->group(function () {
@@ -34,6 +39,10 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return redirect()->route('admin.dashboard');
+    });
+
     Route::get('dashboard', function () {
         return view('welcome')->name('admin.dashboard');
     });
