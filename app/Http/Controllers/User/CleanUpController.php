@@ -20,7 +20,8 @@ class CleanUpController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            $campaigns = Campaign::where('approved_by', null)->with(['city.province', 'votes'])
+            $campaigns = Campaign::where('is_approved', true)
+                ->with(['city.province', 'votes'])
                 ->orderBy('vote', 'DESC')
                 ->orderBy('title', 'ASC')
                 ->get();
@@ -30,7 +31,6 @@ class CleanUpController extends Controller
                     return $campaign->city->name . ', ' . $campaign->city->province->name;
                 })
                 ->addColumn('vote', function (Campaign $campaign) {
-                    // check auth
                     if (auth()->check()) {
                         if ($campaign->votes->contains('user_id', auth()->user()->id)) {
                             return '<button class="btn btn-primary btn-sm" onClick="handleVote(\'' . $campaign->slug . '\')" >Vote</button>';
@@ -137,8 +137,11 @@ class CleanUpController extends Controller
 
             DB::commit();
 
-            flash()->success('Berhasil memberikan vote');
-            return redirect()->route('home');
+            return response()->json([
+                'success' => true,
+                'status' => 200,
+                'message' => 'Berhasil vote campaign'
+            ], 200);
         } catch (\Exception $e) {
             DB::rollBack();
 
