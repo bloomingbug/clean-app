@@ -9,21 +9,17 @@ class Province extends Model
 {
     use HasFactory;
 
+    public $incrementing = false;
+
     protected $fillable = [
-        'code',
+        'id',
         'name',
     ];
 
     protected $hidden = [
-        'id',
         'created_at',
         'updated_at',
     ];
-
-    public function getRouteKeyName(): string
-    {
-        return 'code';
-    }
 
     public function cities()
     {

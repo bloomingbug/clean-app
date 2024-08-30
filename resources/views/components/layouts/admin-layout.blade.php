@@ -33,7 +33,7 @@
     <x-elements.header.admin-header />
 
     <!-- Main Content -->
-    <main class="konten container">
+    <main class="content container">
         <div class="row d-flex justify-content-between mb-3 gx-lg-5">
             <x-elements.nav.admin-nav />
 

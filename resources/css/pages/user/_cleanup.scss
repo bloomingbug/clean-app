@@ -1,0 +1,7 @@
+table.table {
+    .btn.btn-outline-primary:active,
+    .btn.btn-outline-primary:focus {
+        background-color: var(--bs-white);
+        color: var(--bs-primary);
+    }
+}

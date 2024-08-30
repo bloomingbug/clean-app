@@ -8,7 +8,7 @@ use Illuminate\View\Component;
 
 class AdminLayout extends Component
 {
-    public string $title;
+    public string | null $title;
     public array $vite = ['resources/js/app.js', 'resources/js/components/layouts/admin.js'];
     public function __construct(string $title = null, array $vite = [])
     {

@@ -23,16 +23,18 @@ if (! function_exists('generateSlug')) {
             ->where($key, 'like', $slug . '%')
             ->latest('created_at')
             ->first()
-            ->toArray();
+            ?->toArray();
 
-        if (array_key_exists($key, $exist)) {
-            $slugArray = (explode('-', $exist[$key]));
-            if (!is_numeric($slugArray[count($slugArray) - 1])) {
-                $slug = $slug . '-1';
-            } else {
-                $number = (int) $slugArray[count($slugArray) - 1];
-                array_pop($slugArray);
-                $slug = implode('-', $slugArray) . '-' . ($number + 1);
+        if ($exist) {
+            if (array_key_exists($key, $exist)) {
+                $slugArray = (explode('-', $exist[$key]));
+                if (!is_numeric($slugArray[count($slugArray) - 1])) {
+                    $slug = $slug . '-1';
+                } else {
+                    $number = (int) $slugArray[count($slugArray) - 1];
+                    array_pop($slugArray);
+                    $slug = implode('-', $slugArray) . '-' . ($number + 1);
+                }
             }
         }
 

@@ -23,6 +23,7 @@ class Campaign extends Model
         'vote',
         'address',
         'proposed_by_id',
+        'is_approved',
         'approved_by',
         'approved_at',
         'city_id',
@@ -43,22 +44,16 @@ class Campaign extends Model
         'deleted_at',
     ];
 
-    protected $casts = [
-        'event_date' => 'date',
-        'event_time' => 'time',
-        'approved_at' => 'datetime',
-        'due_date_fund' => 'date',
-        'due_date_volunteer' => 'date',
-    ];
-
     public function getRouteKeyName()
     {
         return 'slug';
     }
 
-    public function cover(): Attribute
+    protected function cover(): Attribute
     {
-        return Attribute::make(get: fn ($cover) => $cover ? asset('storage/media/', $cover) : null);
+        return Attribute::make(
+            get: fn($cover) => $cover ? asset("storage/media/" . $cover) : null,
+        );
     }
 
     public function media()
@@ -74,5 +69,15 @@ class Campaign extends Model
     public function proposedBy()
     {
         return $this->belongsTo(User::class, 'proposed_by_id', 'id');
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class, 'campaign_id', 'id');
+    }
+
+    public function volunteers()
+    {
+        return $this->hasMany(Volunteer::class, 'campaign_id', 'id');
     }
 }

@@ -1,0 +1,18 @@
+form {
+    .select2-container--bootstrap-5 .select2-selection {
+        background-color: #ededed;
+        border-color: #ededed;
+        border-radius: 0.5rem;
+        -webkit-border-radius: 0.5rem;
+        -moz-border-radius: 0.5rem;
+        -ms-border-radius: 0.5rem;
+        -o-border-radius: 0.5rem;
+    }
+
+    .select2-container--bootstrap-5
+        .select2-selection--single
+        .select2-selection__rendered
+        .select2-selection__placeholder {
+        font-size: 0.8rem;
+    }
+}
