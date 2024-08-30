@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('website', 100)->nullable();
             $table->text('bio')->nullable();
             $table->string('phone')->nullable();
-            $table->unsignedBigInteger('city_id')->nullable();
+            $table->string('city_id')->nullable();
             $table->foreign('city_id')->references('id')->on('cities')->nullOnDelete()->cascadeOnUpdate();
             $table->text('address')->nullable();
             $table->timestamps();

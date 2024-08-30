@@ -10,8 +10,10 @@
         content="CleanApp, CleanApp.id, CleanApp Indonesia, CleanApp Platform, CleanApp Platform Indonesia, CleanApp.id Platform, CleanApp.id Platform Indonesia" />
     <meta name="description"
         content="Platform yang menjembatani setiap individu untuk memberikan kontribusi nyata bagi bumi. CleanApp menyediakan kesempatan berkontribusi melalui awarness CleanUp, CleanFund, dan CleanAct">
-    <meta name="robots" content="noindex,nofollow" />
-    <title>{{ $title ? $title . ' - Admin CleanApp' : 'Admin CleanApp' }}</title>
+    <meta name="robots" content="index,follow" />
+    <meta name="googlebot" content="index,follow" />
+    <meta name="bingbot" content="index,follow" />
+    <title>{{ $title ? $title . ' - CleanApp' : 'CleanApp' }}</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,25 +31,20 @@
     @stack('head')
 </head>
 
-<body class="admin-page">
-    <x-elements.header.admin-header />
+<body class="user-page">
+    <x-elements.header.user-header :title="$title" :description="$description" />
 
     <!-- Main Content -->
     <main class="content container">
         <div class="row d-flex justify-content-between mb-3 gx-lg-5">
-            <x-elements.nav.admin-nav />
+            <x-elements.nav.user-nav />
 
             <!-- Dashboard Content -->
-            <div class="col-lg-9 summary-chart">
+            <div class="col-lg-9">
                 <div class="row">
-                    <!-- Header Pager -->
-                    <section class="col-12">
-                        <h2 class="text-primary fw-bold mb-4">{{ $title }}</h2>
-                    </section>
-                    <!-- End of Header Pager -->
+                    {{ $slot }}
                 </div>
 
-                {{ $slot }}
                 <!-- End of Peringkat Pegawai -->
             </div>
             <!-- End of Dashboard Content -->

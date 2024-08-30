@@ -4,8 +4,7 @@
         <hr />
         <p class="text-center">
             <small>Copyright &copy; 2024
-                <a href="#" class="fw-bold text-decoration-none">Clean App</a>
-                . All Rights Reserved.</small>
+                <a href="#" class="fw-bold text-decoration-none">Clean App</a>. All Rights Reserved.</small>
         </p>
     </div>
 </footer>

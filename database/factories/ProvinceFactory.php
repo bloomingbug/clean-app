@@ -17,7 +17,7 @@ class ProvinceFactory extends Factory
     public function definition(): array
     {
         return [
-            'code' => $this->faker->unique()->regexify('[1-9]{2}'),
+            'id' => $this->faker->unique()->regexify('[1-9]{2}'),
             'name' => $this->faker->unique()->state(),
         ];
     }
