@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
+use App\Models\Funding;
 use App\Models\Province;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -86,7 +87,18 @@ class CleanUpController extends Controller
         return redirect()->route('home');
     }
 
-    public function show($campaign) {}
+
+    public function show(Campaign $campaign)
+    {
+        $campaign->load(['city.province', 'proposedBy'])->loadCount('volunteers');
+        $fundings = Funding::select(['no', 'name', 'amount', 'is_anonymous', 'message', 'created_at'])
+            ->where('campaign_id', $campaign->id)
+            ->where('status', 'success')
+            ->latest()
+            ->limit(10);
+
+        return view('pages.user.cleanup.show', compact('campaign', 'fundings'));
+    }
 
     public function location()
     {

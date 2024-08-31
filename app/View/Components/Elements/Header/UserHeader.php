@@ -13,8 +13,8 @@ class UserHeader extends Component
     public string | null $description;
     public function __construct(string $title = null, string $description = null)
     {
-        $this->user = auth()->user();
         $this->title = $title;
+        $this->user = auth()->user();
         $this->description = $description;
     }
 
