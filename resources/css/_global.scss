@@ -1,0 +1,26 @@
+@import "bootstrap-icons/font/bootstrap-icons.css";
+@import "select2/dist/css/select2.min.css";
+@import "select2-bootstrap-5-theme/src/select2-bootstrap-5-theme";
+@import "datatables.net-bs5/css/dataTables.bootstrap5.css";
+@import "@/css/components/_select2.scss";
+@import "@/css/components/_datatable.scss";
+@import "@/css/components/_sweetalert.scss";
+
+::-webkit-scrollbar {
+    width: 0.6rem;
+    height: 0.6rem;
+}
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--bs-primary);
+    border-radius: 50rem;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--bs-success);
+}
+
+.text-justify {
+    text-align: justify !important;
+}

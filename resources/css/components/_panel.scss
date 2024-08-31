@@ -1,0 +1,83 @@
+main.content {
+    top: 4rem;
+
+    .sidebar {
+        max-height: 100vh;
+    }
+
+    .avatar-profile {
+        width: 75px;
+        height: 75px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--bs-primary);
+        overflow: hidden;
+
+        .avatar-image {
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .avatar-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+        }
+    }
+
+    .nama-user {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 30px;
+        text-align: center;
+        color: var(--bs-primary);
+    }
+}
+
+.mobile-layout {
+    z-index: 3000;
+    bottom: 30px;
+    right: 0;
+    left: 0;
+    padding: 0 30px;
+
+    .card-bottom-mobile {
+        background-color: rgba(255, 255, 255, 0.6);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        padding: 20px;
+        border-radius: 25px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        -ms-border-radius: 25px;
+        -o-border-radius: 25px;
+    }
+}
+
+.icon-aksi {
+    transition-duration: 0.2s;
+
+    &:hover {
+        transform: scale(0.95);
+        -webkit-transform: scale(0.95);
+        -moz-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+        -o-transform: scale(0.95);
+    }
+}
+
+footer {
+    margin-bottom: 140px;
+
+    & ~ a {
+        color: #1e1e1e;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    footer {
+        margin-bottom: 150px;
+    }
+}

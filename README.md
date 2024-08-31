@@ -4,7 +4,7 @@
 
 ## 🌻 Deskripsi
 
-Melalui CleanApp semua orang dapat berkontribusi untuk merawat bumi. Bisa melalui awarness (CleanUp), melalui pembiayaan (CleanFund), dan melalui aksi (CleanAct).
+CleanApp merupakan platform yang menjembatani semua orang dapat berkontribusi untuk merawat bumi. Bisa melalui awarness (CleanUp), melalui pembiayaan (CleanFund), dan melalui aksi (CleanAct).
 
 ## ⚡ Teknologi
 

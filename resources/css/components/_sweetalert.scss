@@ -1,0 +1,5 @@
+.admin-page
+    div:where(.swal2-container)
+    button:where(.swal2-styled).swal2-confirm {
+    background-color: var(--bs-primary);
+}
