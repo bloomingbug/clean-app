@@ -27,10 +27,15 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+                @if($title)
                 <h1 class="text-center fw-bold">{{ $title }}</h1>
+                @endif
+
+                @if($description)
                 <p class="text-center fw-semibold fs-4">
                     {{ $description }}
                 </p>
+                @endif
             </div>
         </div>
     </div>

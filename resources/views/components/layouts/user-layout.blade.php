@@ -13,7 +13,12 @@
     <meta name="robots" content="index,follow" />
     <meta name="googlebot" content="index,follow" />
     <meta name="bingbot" content="index,follow" />
+    @if($titleMeta)
+    <title>{{ $titleMeta . ' - CleanApp' }}</title>
+
+    @else
     <title>{{ $title ? $title . ' - CleanApp' : 'CleanApp' }}</title>
+    @endif
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +37,7 @@
 </head>
 
 <body class="user-page">
-    <x-elements.header.user-header :title="$title" :description="$description" />
+    <x-elements.header.user-header :title="$title ? $title : null" :description="$description" />
 
     <!-- Main Content -->
     <main class="content container">
