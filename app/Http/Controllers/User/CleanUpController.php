@@ -21,11 +21,12 @@ class CleanUpController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            $campaigns = Campaign::where('is_approved', true)
-                ->with(['city.province', 'votes'])
+            $campaigns = Campaign::with(['city.province', 'votes'])
+                ->whereNot('is_approved', 1)->orWhere('is_approved', null)
                 ->orderBy('vote', 'DESC')
                 ->orderBy('title', 'ASC')
                 ->get();
+
             return DataTables::of($campaigns)
                 ->addIndexColumn()
                 ->addColumn('cityAndProvince', function (Campaign $campaign) {
@@ -102,9 +103,8 @@ class CleanUpController extends Controller
 
     public function location()
     {
-
-        $campaigns = Campaign::select(['title', 'slug', 'cover', 'description', 'latitude', 'longitude', 'address', 'city_id', 'proposed_by_id'])
-            ->where('approved_by', null)
+        $campaigns = Campaign::select(['title', 'slug', 'cover', 'description', 'latitude', 'longitude', 'address', 'city_id', 'proposed_by_id', 'is_approved'])
+            ->whereNot('is_approved', 1)->orWhere('is_approved', null)
             ->with(['city.province', 'proposedBy'])
             ->get();
 
