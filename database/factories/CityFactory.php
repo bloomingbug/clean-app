@@ -17,6 +17,7 @@ class CityFactory extends Factory
     public function definition(): array
     {
         $province = \App\Models\Province::first();
+
         return [
             'province_id' => $province->id,
             'code' => $this->faker->unique()->regexify('[1-9]{4}'),

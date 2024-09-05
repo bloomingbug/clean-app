@@ -53,7 +53,7 @@ class Campaign extends Model
     protected function cover(): Attribute
     {
         return Attribute::make(
-            get: fn($cover) => $cover ? asset("storage/media/" . $cover) : null,
+            get: fn ($cover) => $cover ? asset('storage/media/'.$cover) : null,
         );
     }
 

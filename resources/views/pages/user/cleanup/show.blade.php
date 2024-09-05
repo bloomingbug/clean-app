@@ -74,24 +74,38 @@
         <div class="card-body">
             @if($campaign->target_fund > 0 || $campaign->due_date_fund > now())
             <div class="form-donation" id="donate">
-                <form action="#" method="post">
+                <form action="{{ route('cleanfund.store') }}" method="post" class="mb-4">
                     @csrf
+                    @error('slug')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    <input type="hidden" name="slug" value="{{ $campaign->slug }}">
 
                     <div class="form-group mb-3">
                         <label for="amount" class="form-label">Jumlah Donasi</label>
-                        <input type="number" name="amount" id="amount" class="form-control" required>
+                        <input type="number" name="amount" id="amount" class="form-control" value="{{ old('amount') }}"
+                            required>
+                        @error('amount')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="message" class="form-label">Pesan (opsional)</label>
-                        <textarea name="message" id="message" class="form-control"></textarea>
+                        <textarea name="message" id="message" class="form-control">{{ old('message') }}</textarea>
+                        @error('message')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="true" id="secret" name="is_anonymous">
+                        <input class="form-check-input" type="checkbox" value="1" id="secret" name="is_anonymous">
                         <label class="form-check-label" for="secret">
                             Sembunyikan nama saya
                         </label>
+                        @error('is_anonymous')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">Donasi</button>
@@ -100,13 +114,14 @@
             @endif
 
             @forelse ($fundings as $funding)
-            <div class="d-flex flex-col justify-content-center align-items-center gap-3 mt-5">
-                <div class="card bg-info border-0 rounded-2 w-100">
+            <div class="d-flex flex-col justify-content-center align-items-center my-2">
+                <div class="card card-donation border-0 rounded-2 w-100">
                     <div class="card-body">
-                        <div class="name fs-4 fw-bold">{{ $funding->name }}</div>
-                        <div class="amount text-secondary">Telah berdonasi sebesar {{ 'Rp' .
+                        <div class="name">{{ $funding->is_anonymous ? censorName($funding->name) :
+                            $funding->name }}</div>
+                        <div class="amount">Telah berdonasi sebesar {{ 'Rp' .
                             number_format($funding->amount, 0, ',', '.') }}</div>
-                        <div class="message mt-2 fs-5">{{ $funding->message }}</div>
+                        <div class="message">{{ $funding->message }}</div>
                     </div>
                 </div>
             </div>

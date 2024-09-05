@@ -10,7 +10,6 @@
                     {{ $totalFund ?? '0' }}
                 </div>
             </div>
-
             <h5 class="mb-1 fw-bold">{{ $title }}</h5>
             <div class="d-flex gap-1 justify-content-start align-items-center">
                 <p class="text-muted text-sm m-0">

@@ -9,6 +9,7 @@ use Illuminate\View\Component;
 class AdminHeader extends Component
 {
     public $user;
+
     public function __construct()
     {
         $this->user = auth()->user();

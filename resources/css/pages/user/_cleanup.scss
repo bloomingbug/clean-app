@@ -30,6 +30,28 @@ table.table {
             background-repeat: no-repeat;
         }
     }
+
+    .card-donation {
+        background-color: var(--bs-gray-300);
+
+        .name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--bs-dark);
+        }
+
+        .amount {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--bs-primary);
+        }
+
+        .message {
+            font-size: 0.8rem;
+            color: var(--bs-black-50);
+            margin-top: 0.5rem;
+        }
+    }
 }
 
 @media screen and (min-width: 768px) {

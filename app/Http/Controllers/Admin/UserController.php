@@ -48,14 +48,16 @@ class UserController extends Controller
         }
 
         $title = 'Hapus User!';
-        $text = "Apakah anda yakin ingin menghapus user ini?";
+        $text = 'Apakah anda yakin ingin menghapus user ini?';
         confirmDelete($title, $text);
+
         return view('pages.admin.user.index');
     }
 
     public function create()
     {
         $roles = Role::orderBy('name')->get();
+
         return view('pages.admin.user.create', compact('roles'));
     }
 
@@ -78,12 +80,14 @@ class UserController extends Controller
         $user->assignRole($request->role);
 
         flash()->success('User berhasil ditambahkan!');
+
         return redirect()->route('admin.user.index')->with('success', 'User berhasil ditambahkan!');
     }
 
     public function edit(User $user)
     {
         $roles = Role::orderBy('name')->get();
+
         return view('pages.admin.user.edit', compact('user', 'roles'));
     }
 
@@ -91,7 +95,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255',  'alpha_dash', 'unique:users,username,' . $user->id,],
+            'username' => ['required', 'string', 'max:255',  'alpha_dash', 'unique:users,username,'.$user->id],
             'role' => ['required', 'exists:roles,name'],
         ]);
 
@@ -103,6 +107,7 @@ class UserController extends Controller
         $user->syncRoles($request->role);
 
         flash()->success('User berhasil diubah!');
+
         return redirect()->route('admin.user.index')->with('success', 'User berhasil diubah!');
     }
 
@@ -111,6 +116,7 @@ class UserController extends Controller
         $user->delete();
 
         flash()->success('User berhasil dihapus!');
+
         return redirect()->route('admin.user.index')->with('success', 'User berhasil dihapus!');
     }
 }
