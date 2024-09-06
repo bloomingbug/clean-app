@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\Admin\CleanActController as AdminCleanActController;
 use App\Http\Controllers\Admin\CleanFundController as AdminCleanFundController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -60,13 +61,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::prefix('admin')->middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return redirect()->route('admin.dashboard');
-    });
-
-    Route::get('dashboard', function () {
-        return view('welcome')->name('admin.dashboard');
-    });
+    Route::get('/', DashboardController::class)->name('admin.dashboard');
 
     Route::get('permission', [PermissionController::class, 'index'])->name('admin.permission.index');
 

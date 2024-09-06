@@ -12,7 +12,8 @@
 
             <h6 class="fw-bold mt-4 mb-1">Menu</h6>
             <hr class="my-2" />
-            <a href="" class="link {{ request()->is('/admin/dashboard') || request()->is('/admin') ? 'active' : '' }}">
+            <a href="{{ route('admin.dashboard') }}"
+                class="link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <i class="fa-solid fa-chart-simple"></i>Dashboard
             </a>
 
@@ -63,8 +64,7 @@
 
             <li class="list-group-item">
                 <a href="#" class="link">
-                    <a href=""
-                        class="link {{ request()->is('/admin/dashboard') ||request()->is('/admin') ? 'active' :'' }}">
+                    <a href="" class="link {{ request()->routeIs('admin.dashboard') ? 'active' :'' }}">
                         <i class="fa-solid fa-chart-simple"></i>Dashboard
                     </a>
                 </a>
@@ -80,7 +80,7 @@
             @can('campaign.index')
             <li class="list-group-item">
                 <a href="{{ route('admin.campaign.index') }}"
-                    class="link {{ request()->is('/admin/campaigns') ? 'active' :'' }}">
+                    class="link {{ request()->routeIs('.admin.campaign.index') ? 'active' :'' }}">
                     <i class="fa-solid fa-seedling"></i>Campaign
                 </a>
             </li>
@@ -89,7 +89,7 @@
             @can('user.index')
             <li class="list-group-item">
                 <a href="{{ route('admin.user.index') }}"
-                    class="link {{ request()->is('/admin/users') ? 'active' :'' }}">
+                    class="link {{ request()->routeIs('admin.user.index') ? 'active' :'' }}">
                     <i class="fa-solid fa-users"></i>User
                 </a>
             </li>
@@ -97,7 +97,7 @@
 
             <li class="list-group-item">
                 <a href="{{route('admin.profile.index')}}"
-                    class="link {{ request()->is('/admin/profile') ? 'active' :'' }}">
+                    class="link {{ request()->routeIs('admin.profile.index') ? 'active' :'' }}">
                     <i class="fa-solid fa-user"></i>Profile
                 </a>
             </li>
