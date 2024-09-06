@@ -1,7 +1,7 @@
 <aside class="col-lg-3 d-none d-lg-block sidebar">
     <div class="card bg-transparent border-0">
         <div class="card-body bg-white rounded-4 pb-4">
-            <a href="#" title="Profil" class="text-decoration-none">
+            <a href="{{ route('admin.profile.index') }}" title="Profil" class="text-decoration-none">
                 <div class="rounded-circle overflow-hidden avatar-profile mx-auto mb-2 mt-3">
                     <img src="{{ $user->avatar ? asset($user->avatar) : 'https://ui-avatars.com/api/?background=00754b&color=fff&name=' . $user->name }}"
                         alt="Avatar" class="img-fluid avatar-image" />
@@ -15,13 +15,17 @@
             <a href="" class="link {{ request()->is('/admin/dashboard') || request()->is('/admin') ? 'active' : '' }}">
                 <i class="fa-solid fa-chart-simple"></i>Dashboard
             </a>
+
+            @can('campaign.index')
             <a href="{{ route('admin.campaign.index') }}"
                 class="link {{ request()->routeIs('admin.campaign.index') ? 'active' :'' }}">
                 <i class="fa-solid fa-seedling"></i>Campaign
             </a>
-            <a href="" class="link {{ request()->is('/admin/reports') ? 'active' :'' }}">
+            @endcan
+
+            {{-- <a href="" class="link {{ request()->is('/admin/reports') ? 'active' :'' }}">
                 <i class="fa-solid fa-file"></i>Report
-            </a>
+            </a> --}}
 
 
             <h6 class="fw-bold mt-4 mb-1">User Management</h6>
@@ -56,6 +60,7 @@
 <section class="col-12 position-fixed mobile-layout d-block d-lg-none">
     <div class="card-bottom-mobile">
         <ul class="sidebar-link">
+
             <li class="list-group-item">
                 <a href="#" class="link">
                     <a href=""
@@ -65,24 +70,34 @@
                 </a>
             </li>
 
-            <li class="list-group-item">
+            {{-- <li class="list-group-item">
                 <a href="{{ route('admin.campaign.index') }}"
                     class="link {{ request()->routeIs('admin.campaign.index') ? 'active' :'' }}">
                     <i class="fa-solid fa-file"></i>Report
                 </a>
-            </li>
+            </li> --}}
+
+            @can('campaign.index')
             <li class="list-group-item">
-                <a href="" class="link {{ request()->is('/admin/campaigns') ? 'active' :'' }}">
+                <a href="{{ route('admin.campaign.index') }}"
+                    class="link {{ request()->is('/admin/campaigns') ? 'active' :'' }}">
                     <i class="fa-solid fa-seedling"></i>Campaign
                 </a>
             </li>
+            @endcan
+
+            @can('user.index')
             <li class="list-group-item">
-                <a href="" class="link {{ request()->is('/admin/users') ? 'active' :'' }}">
+                <a href="{{ route('admin.user.index') }}"
+                    class="link {{ request()->is('/admin/users') ? 'active' :'' }}">
                     <i class="fa-solid fa-users"></i>User
                 </a>
             </li>
+            @endcan
+
             <li class="list-group-item">
-                <a href="" class="link {{ request()->is('/admin/profile') ? 'active' :'' }}">
+                <a href="{{route('admin.profile.index')}}"
+                    class="link {{ request()->is('/admin/profile') ? 'active' :'' }}">
                     <i class="fa-solid fa-user"></i>Profile
                 </a>
             </li>

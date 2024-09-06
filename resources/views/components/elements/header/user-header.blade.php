@@ -11,8 +11,8 @@
             </a>
 
             @if ($user)
-            <a href="#" class="square ratio-1x1 bg-primary profile" title="Profil">
-                <img src="{{ $user->avatar ? asset($user->avatar) : 'https://ui-avatars.com/api/?background=00754b&color=fff&name=' . $user->name }}"
+            <a href="{{ route('profile.index') }}" class="square ratio-1x1 bg-primary profile" title="Profil">
+                <img src="{{ $user->avatar ?? 'https://ui-avatars.com/api/?background=00754b&color=fff&name=' . $user->name }}"
                     alt="Avatar" class="img-fluid avatar-image" />
             </a>
             @else
