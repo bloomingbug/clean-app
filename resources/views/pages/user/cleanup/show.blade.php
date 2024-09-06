@@ -28,7 +28,7 @@
 
                 <p class="text-muted text-justify">{!! $campaign->description !!}</p>
 
-                <div class="row" id="register">
+                <div class="row mt-5" id="register">
                     @if($campaign->target_volunteer > 0)
                     <div class="col-6 col-md-4">
                         <div class="text-black-50 mb-1">Total Volunteer</div>
@@ -54,14 +54,23 @@
 
                     @if($campaign->target_volunteer > 0)
                     <div class="col-12 col-md-4 mt-3 mt-md-0">
+                        {{-- check auth user is already resgister --}}
+                        @if(!$ticket)
                         <p class="text-black-50 text-center mb-1">Daftar sebagai volunteer</p>
 
-                        @if($campaign->volunteers_count >= $campaign->target_volunteer || $campaign->due_date_volunteer
-                        < now()) <button class="btn btn-danger w-100" disabled>Daftar</button>
+                        @if(($campaign->volunteers_count >= $campaign->target_volunteer || $campaign->due_date_volunteer
+                        < now())) <button class="btn btn-danger w-100" disabled>Daftar</button>
                             @else
-                            <a href="/act/register" class="btn btn-primary w-100">Daftar</a>
-
+                            <a href="{{ route('cleanact.create', $campaign->slug) }}"
+                                class="btn btn-primary w-100">Daftar</a>
                             @endif
+
+                            @else
+
+                            <p class="text-black-50 text-center mb-1">Anda sudah terdaftar</p>
+                            <a href="{{ route('cleanact.show', $ticket->no) }}" class="btn btn-info w-100">Tiket</a>
+                            @endif
+
                     </div>
                     @endif
                 </div>
@@ -69,6 +78,7 @@
         </div>
     </section>
 
+    @if(($campaign->target_fund > 0 || $campaign->due_date_fund > now()) || $fundings->count() > 0)
     <section class="card rounded-3 border-0 p-0 mt-4 mt-md-5">
 
         <div class="card-body">
@@ -129,4 +139,5 @@
             @endforelse
         </div>
     </section>
+    @endif
 </x-layouts.user-layout>

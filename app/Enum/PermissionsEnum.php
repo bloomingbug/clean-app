@@ -25,16 +25,16 @@ enum PermissionsEnum: string
     case CAMPAIGN_ACT = 'campaign.act';
     case CAMPAIGN_DELETE = 'campaign.delete';
     case REPORT_INDEX = 'report.index';
-    case CLEANUP_INDEX = 'cleanup.index';
-    case CLEANUP_DETAIL = 'cleanup.detail';
-    case CLEANUP_ADD = 'cleanup.add';
-    case CLEANUP_VOTE = 'cleanup.vote';
-    case CLEANFUND_INDEX = 'cleanfund.index';
-    case CLEANFUND_DETAIL = 'cleanfund.detail';
-    case CLEANFUND_DONATE = 'cleanfund.donate';
-    case CLEANACT_INDEX = 'cleanact.index';
-    case CLEANACT_DETAIL = 'cleanact.detail';
-    case CLEANACT_REGISTER = 'cleanact.register';
+    // case CLEANUP_INDEX = 'cleanup.index';
+    // case CLEANUP_DETAIL = 'cleanup.detail';
+    // case CLEANUP_ADD = 'cleanup.add';
+    // case CLEANUP_VOTE = 'cleanup.vote';
+    // case CLEANFUND_INDEX = 'cleanfund.index';
+    // case CLEANFUND_DETAIL = 'cleanfund.detail';
+    // case CLEANFUND_DONATE = 'cleanfund.donate';
+    // case CLEANACT_INDEX = 'cleanact.index';
+    // case CLEANACT_DETAIL = 'cleanact.detail';
+    // case CLEANACT_REGISTER = 'cleanact.register';
 
     public static function getPermissions(): array
     {
@@ -60,16 +60,16 @@ enum PermissionsEnum: string
             self::CAMPAIGN_ACT,
             self::CAMPAIGN_DELETE,
             self::REPORT_INDEX,
-            self::CLEANUP_INDEX,
-            self::CLEANUP_DETAIL,
-            self::CLEANUP_ADD,
-            self::CLEANUP_VOTE,
-            self::CLEANFUND_INDEX,
-            self::CLEANFUND_DETAIL,
-            self::CLEANFUND_DONATE,
-            self::CLEANACT_INDEX,
-            self::CLEANACT_DETAIL,
-            self::CLEANACT_REGISTER,
+            // self::CLEANUP_INDEX,
+            // self::CLEANUP_DETAIL,
+            // self::CLEANUP_ADD,
+            // self::CLEANUP_VOTE,
+            // self::CLEANFUND_INDEX,
+            // self::CLEANFUND_DETAIL,
+            // self::CLEANFUND_DONATE,
+            // self::CLEANACT_INDEX,
+            // self::CLEANACT_DETAIL,
+            // self::CLEANACT_REGISTER,
         ];
     }
 
@@ -97,16 +97,16 @@ enum PermissionsEnum: string
             self::CAMPAIGN_ACT => 'campaign.act',
             self::CAMPAIGN_DELETE => 'campaign.delete',
             self::REPORT_INDEX => 'report.index',
-            self::CLEANUP_INDEX => 'cleanup.index',
-            self::CLEANUP_DETAIL => 'cleanup.detail',
-            self::CLEANUP_ADD => 'cleanup.add',
-            self::CLEANUP_VOTE => 'cleanup.vote',
-            self::CLEANFUND_INDEX => 'cleanfund.index',
-            self::CLEANFUND_DETAIL => 'cleanfund.detail',
-            self::CLEANFUND_DONATE => 'cleanfund.donate',
-            self::CLEANACT_INDEX => 'cleanact.index',
-            self::CLEANACT_DETAIL => 'cleanact.detail',
-            self::CLEANACT_REGISTER => 'cleanact.register',
+            // self::CLEANUP_INDEX => 'cleanup.index',
+            // self::CLEANUP_DETAIL => 'cleanup.detail',
+            // self::CLEANUP_ADD => 'cleanup.add',
+            // self::CLEANUP_VOTE => 'cleanup.vote',
+            // self::CLEANFUND_INDEX => 'cleanfund.index',
+            // self::CLEANFUND_DETAIL => 'cleanfund.detail',
+            // self::CLEANFUND_DONATE => 'cleanfund.donate',
+            // self::CLEANACT_INDEX => 'cleanact.index',
+            // self::CLEANACT_DETAIL => 'cleanact.detail',
+            // self::CLEANACT_REGISTER => 'cleanact.register',
         };
     }
 }

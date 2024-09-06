@@ -34,9 +34,12 @@ Route::put('/campaign/{campaign}/vote', [CleanUpController::class, 'vote'])->nam
 
 Route::get('/cleanfund', [CleanFundController::class, 'index'])->name('cleanfund.index');
 Route::post('/cleanfund', [CleanFundController::class, 'store'])->name('cleanfund.store')->middleware('auth');
-// Route::post('/webhook', [CleanFundController::class, 'update'])->name('cleanfund.update');
 
 Route::get('/cleanact', [CleanActController::class, 'index'])->name('cleanact.index');
+Route::get('/cleanact/{campaign}/register', [CleanActController::class, 'create'])->name('cleanact.create');
+Route::post('/cleanact/{campaign}/register', [CleanActController::class, 'store'])->name('cleanact.store');
+Route::get('/cleanact/{volunteer}', [CleanActController::class, 'show'])->name('cleanact.show');
+Route::put('/cleanact/{volunteer}', [CleanActController::class, 'update'])->name('cleanact.update');
 
 Route::get('/province/{id}', [ProvinceController::class, 'show'])->name('province.show');
 

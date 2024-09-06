@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Models\Funding;
 use App\Models\Province;
+use App\Models\Volunteer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -101,8 +102,9 @@ class CleanUpController extends Controller
             ->latest()
             ->limit(10)
             ->get();
+        $ticket = Volunteer::where('campaign_id', $campaign->id)->where('user_id', auth()->id())->first();
 
-        return view('pages.user.cleanup.show', compact('campaign', 'fundings'));
+        return view('pages.user.cleanup.show', compact('campaign', 'fundings', 'ticket'));
     }
 
     public function location()

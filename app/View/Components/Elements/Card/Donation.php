@@ -40,7 +40,7 @@ class Donation extends Component
         $this->date = Carbon::parse($date)->translatedFormat('d F Y');
         $this->city = $city;
         $this->province = $province;
-        $this->location = $city . ', ' . $province;
+        $this->location = $city.', '.$province;
     }
 
     public function render(): View|Closure|string

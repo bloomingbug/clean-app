@@ -18,7 +18,7 @@ class CleanFundController extends Controller
         \Midtrans\Config::$isSanitized = config('services.midtrans.isSanitized');
         \Midtrans\Config::$is3ds = config('services.midtrans.is3ds');
 
-        $this->middleware('permission:cleanfund.donate')->only('store');
+        $this->middleware('auth')->only(['store']);
     }
 
     public function index()
@@ -62,7 +62,7 @@ class CleanFundController extends Controller
                 $random .= rand(0, 1) ? rand(0, 9) : chr(rand(ord('a'), ord('z')));
             }
 
-            $no = formatInitials($campaign->title) . '-' . date('d') . strtoupper($random);
+            $no = formatInitials($campaign->title) . '-CF-' . date('d') . strtoupper($random);
 
             $donation = Funding::create([
                 'no' => $no,
@@ -78,13 +78,13 @@ class CleanFundController extends Controller
 
             $payload = [
                 'transaction_details' => [
-                    'order_id'      => $donation->no,
-                    'gross_amount'  => $donation->amount,
+                    'order_id' => $donation->no,
+                    'gross_amount' => $donation->amount,
                 ],
                 'customer_details' => [
-                    'first_name'       => $user->name,
-                    'email'            => $user->email,
-                ]
+                    'first_name' => $user->name,
+                    'email' => $user->email,
+                ],
             ];
 
             // $snapToken = Snap::getSnapToken($payload);
@@ -93,9 +93,11 @@ class CleanFundController extends Controller
             $donation->save();
 
             DB::commit();
+
             return redirect($paymentUrl);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return redirect()->back()->withInput()
                 ->withErrors(['slug' => 'Donation failed to create']);
         }
@@ -103,24 +105,24 @@ class CleanFundController extends Controller
 
     public function update(Request $request)
     {
-        $payload      = $request->getContent();
+        $payload = $request->getContent();
         $notification = json_decode($payload);
 
-        $validSignatureKey = hash("sha512", $notification->order_id . $notification->status_code . $notification->gross_amount . config('services.midtrans.serverKey'));
+        $validSignatureKey = hash('sha512', $notification->order_id . $notification->status_code . $notification->gross_amount . config('services.midtrans.serverKey'));
 
         if ($notification->signature_key != $validSignatureKey) {
             return response(['message' => 'Invalid signature'], 403);
         }
 
-        $transaction  = $notification->transaction_status;
-        $type         = $notification->payment_type;
-        $orderId      = $notification->order_id;
-        $fraud        = $notification->fraud_status;
+        $transaction = $notification->transaction_status;
+        $type = $notification->payment_type;
+        $orderId = $notification->order_id;
+        $fraud = $notification->fraud_status;
 
         try {
             DB::beginTransaction();
             $data_donation = Funding::where('no', $orderId)->first();
-            if (!$data_donation) {
+            if (! $data_donation) {
                 return response(['message' => 'Donation not found'], 404);
             }
 
@@ -128,33 +130,33 @@ class CleanFundController extends Controller
                 if ($type == 'credit_card') {
                     if ($fraud == 'challenge') {
                         $data_donation->update([
-                            'status' => 'pending'
+                            'status' => 'pending',
                         ]);
                     } else {
                         $data_donation->update([
-                            'status' => 'success'
+                            'status' => 'success',
                         ]);
                     }
                 }
             } elseif ($transaction == 'settlement') {
                 $data_donation->update([
-                    'status' => 'success'
+                    'status' => 'success',
                 ]);
             } elseif ($transaction == 'pending') {
                 $data_donation->update([
-                    'status' => 'pending'
+                    'status' => 'pending',
                 ]);
             } elseif ($transaction == 'deny') {
                 $data_donation->update([
-                    'status' => 'failed'
+                    'status' => 'failed',
                 ]);
             } elseif ($transaction == 'expire') {
                 $data_donation->update([
-                    'status' => 'expired'
+                    'status' => 'expired',
                 ]);
             } elseif ($transaction == 'cancel') {
                 $data_donation->update([
-                    'status' => 'failed'
+                    'status' => 'failed',
                 ]);
             }
 
@@ -162,14 +164,16 @@ class CleanFundController extends Controller
                 $campaign = $data_donation->campaign()->lockForUpdate()->first();
 
                 $campaign->update([
-                    'total_fund' => $campaign->total_fund + $data_donation->amount
+                    'total_fund' => $campaign->total_fund + $data_donation->amount,
                 ]);
             }
 
             DB::commit();
+
             return response(['message' => 'Donation updated successfully'], 200);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return response(['message' => 'Failed to update donation'], 500);
         }
     }
