@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,6 +37,18 @@ class Volunteer extends Model
     protected $casts = [
         'presence_at' => 'datetime',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'no';
+    }
+
+    protected function presenceEvidence(): Attribute
+    {
+        return Attribute::make(
+            get: fn($cover) => $cover ? asset('storage/presence/' . $cover) : null,
+        );
+    }
 
     public function campaign()
     {

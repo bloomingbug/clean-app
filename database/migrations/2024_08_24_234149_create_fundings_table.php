@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name')->index();
             $table->string('email');
             $table->unsignedBigInteger('amount');
-            $table->boolean('is_anonymous')->default(false);
+            $table->boolean('is_anonymous')->nullable()->default(false);
             $table->string('message')->nullable();
             $table->enum('status', ['pending', 'success', 'failed', 'expired']);
             $table->string('snap_token')->nullable();

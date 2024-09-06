@@ -31,6 +31,7 @@ class CleanFundController extends Controller
         ]);
 
         flash()->success('Data berhasil diupdate');
+
         return redirect()->route('admin.campaign.index')->with('success', 'Data berhasil diupdate');
     }
 }

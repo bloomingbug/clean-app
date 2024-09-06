@@ -42,8 +42,9 @@ class RoleController extends Controller
         }
 
         $title = 'Hapus Role!';
-        $text = "Apakah anda yakin ingin menghapus role ini?";
+        $text = 'Apakah anda yakin ingin menghapus role ini?';
         confirmDelete($title, $text);
+
         return view('pages.admin.role.index');
     }
 
@@ -51,6 +52,7 @@ class RoleController extends Controller
     {
 
         $permissions = Permission::orderBy('name')->get();
+
         return view('pages.admin.role.create', compact('permissions'));
     }
 
@@ -74,25 +76,27 @@ class RoleController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            flash()->error($e->getCode() . ' Role gagal ditambahkan');
-            return redirect()->route('admin.role.index')->with('error', $e->getCode() . ' Role gagal ditambahkan');
+            flash()->error($e->getCode().' Role gagal ditambahkan');
+
+            return redirect()->route('admin.role.index')->with('error', $e->getCode().' Role gagal ditambahkan');
         }
 
-
         flash()->success('Role berhasil ditambahkan');
+
         return redirect()->route('admin.role.index')->with('success', 'Role berhasil ditambahkan');
     }
 
     public function edit(Role $role)
     {
         $permissions = Permission::orderBy('name')->get();
+
         return view('pages.admin.role.edit', compact('role', 'permissions'));
     }
 
     public function update(Request $request, Role $role)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:roles,name,' . $role->id],
+            'name' => ['required', 'string', 'max:255', 'unique:roles,name,'.$role->id],
             'permissions' => ['required', 'array'],
             'permissions.*' => ['required', 'string', 'exists:permissions,name'],
         ]);
@@ -109,11 +113,13 @@ class RoleController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            flash()->error($e->getCode() . ' Role gagal diedit');
-            return redirect()->route('admin.role.index')->with('error', $e->getCode() . ' Role gagal diedit');
+            flash()->error($e->getCode().' Role gagal diedit');
+
+            return redirect()->route('admin.role.index')->with('error', $e->getCode().' Role gagal diedit');
         }
 
         flash()->success('Role berhasil diedit');
+
         return redirect()->route('admin.role.index')->with('success', 'Role berhasil diedit');
     }
 
@@ -122,6 +128,7 @@ class RoleController extends Controller
         $role->delete();
 
         flash()->success('Role berhasil dihapus');
+
         return redirect()->route('admin.role.index')->with('success', 'Role berhasil dihapus');
     }
 }

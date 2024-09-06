@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\CampaignController;
+use App\Http\Controllers\Admin\CleanActController as AdminCleanActController;
+use App\Http\Controllers\Admin\CleanFundController as AdminCleanFundController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -9,8 +11,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\User\CleanActController;
 use App\Http\Controllers\User\CleanFundController;
 use App\Http\Controllers\User\CleanUpController;
-use App\Http\Controllers\Admin\CleanFundController as AdminCleanFundController;
-use App\Http\Controllers\Admin\CleanActController as AdminCleanActController;
 use App\Http\Controllers\User\ProvinceController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +33,13 @@ Route::get('/campaign/{campaign}', [CleanUpController::class, 'show'])->name('cl
 Route::put('/campaign/{campaign}/vote', [CleanUpController::class, 'vote'])->name('cleanup.vote');
 
 Route::get('/cleanfund', [CleanFundController::class, 'index'])->name('cleanfund.index');
+Route::post('/cleanfund', [CleanFundController::class, 'store'])->name('cleanfund.store')->middleware('auth');
+
 Route::get('/cleanact', [CleanActController::class, 'index'])->name('cleanact.index');
+Route::get('/cleanact/{campaign}/register', [CleanActController::class, 'create'])->name('cleanact.create');
+Route::post('/cleanact/{campaign}/register', [CleanActController::class, 'store'])->name('cleanact.store');
+Route::get('/cleanact/{volunteer}', [CleanActController::class, 'show'])->name('cleanact.show');
+Route::put('/cleanact/{volunteer}', [CleanActController::class, 'update'])->name('cleanact.update');
 
 Route::get('/province/{id}', [ProvinceController::class, 'show'])->name('province.show');
 

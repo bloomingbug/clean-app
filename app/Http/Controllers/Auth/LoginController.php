@@ -20,7 +20,7 @@ class LoginController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => ['required', 'email'],
             'password' => ['required'],
-            'remember' => ['sometimes', 'nullable', 'boolean']
+            'remember' => ['sometimes', 'nullable', 'boolean'],
         ]);
 
         if ($validator->fails()) {
@@ -28,18 +28,18 @@ class LoginController extends Controller
         }
 
         try {
-            if (!auth()->attempt($request->only('email', 'password'), $request->remember)) {
+            if (! auth()->attempt($request->only('email', 'password'), $request->remember)) {
                 return new ErrorResource(false, 'Email or password is incorrect', 401);
             }
 
             if (auth()->user()->role === 'Admin' || auth()->user()->role === 'Super Admin') {
-                return new SuccessResource(true, 'Welcome back, ' . auth()->user()->name, [
-                    'redirect' => route('admin.dashboard')
+                return new SuccessResource(true, 'Welcome back, '.auth()->user()->name, [
+                    'redirect' => route('admin.dashboard'),
                 ]);
             }
 
-            return new SuccessResource(true, 'Welcome back, ' . auth()->user()->name, [
-                'redirect' => route('home')
+            return new SuccessResource(true, 'Welcome back, '.auth()->user()->name, [
+                'redirect' => route('home'),
             ]);
         } catch (\Exception $e) {
             return new ErrorResource(false, 'Terjadi kesalahan pada server', 500);

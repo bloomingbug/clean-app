@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
-use Illuminate\Http\Request;
 
 class ProvinceController extends Controller
 {
@@ -20,7 +19,7 @@ class ProvinceController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'success get data cities',
-            'data' => $cities
+            'data' => $cities,
         ]);
     }
 }

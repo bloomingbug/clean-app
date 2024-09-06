@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Campaign;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Campaign;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class CampaignController extends Controller
@@ -34,7 +34,7 @@ class CampaignController extends Controller
                     return $campaign->proposedBy->name;
                 })
                 ->addColumn('location', function (Campaign $campaign) {
-                    return $campaign->city->name . ', ' . $campaign->city->province->name;
+                    return $campaign->city->name.', '.$campaign->city->province->name;
                 })
                 ->addColumn('date', function (Campaign $campaign) {
                     return $campaign->created_at->format('d F Y');
@@ -47,15 +47,16 @@ class CampaignController extends Controller
         }
 
         $title = 'Hapus Campaign!';
-        $text = "Apakah anda yakin ingin menghapus campaign ini?";
+        $text = 'Apakah anda yakin ingin menghapus campaign ini?';
         confirmDelete($title, $text);
+
         return view('pages.admin.campaign.index');
     }
 
     public function approve(Campaign $campaign)
     {
         $campaign->update([
-            'is_approved' => !$campaign->is_approved,
+            'is_approved' => ! $campaign->is_approved,
             'approved_by' => auth()->id(),
             'approved_at' => now(),
         ]);
@@ -86,15 +87,15 @@ class CampaignController extends Controller
         $fileName = $campaign->getRawOriginal('cover');
         if ($request->hasFile('cover')) {
             if ($campaign->getRawOriginal('cover') != null) {
-                Storage::disk('local')->delete('/public/media/' . $campaign->getRawOriginal('cover'));
+                Storage::disk('local')->delete('/public/media/'.$campaign->getRawOriginal('cover'));
             }
 
             $file = $request->file('cover');
-            $fileName = date('YmdHis') . '-campaign-' . Str::slug(strtoupper($request->title)) . '.' . $file->getClientOriginalExtension();
+            $fileName = date('YmdHis').'-campaign-'.Str::slug(strtoupper($request->title)).'.'.$file->getClientOriginalExtension();
             $file->storeAs('/public/media', $fileName);
         }
 
-        $getLatLong = explode(",", $request->location);
+        $getLatLong = explode(',', $request->location);
 
         $campaign->update([
             'title' => $request->title,
@@ -108,6 +109,7 @@ class CampaignController extends Controller
         ]);
 
         flash()->success('Campaign berhasil diupdate');
+
         return redirect()->route('admin.campaign.index')->with('success', 'Campaign berhasil diupdate');
     }
 
@@ -116,6 +118,7 @@ class CampaignController extends Controller
         $campaign->delete();
 
         flash()->success('Campaign berhasil dihapus');
+
         return redirect()->back()->with('success', 'Campaign berhasil dihapus');
     }
 }

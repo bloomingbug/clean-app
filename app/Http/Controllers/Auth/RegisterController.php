@@ -37,7 +37,7 @@ class RegisterController extends Controller
                 'username' => $username,
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => bcrypt($request->password)
+                'password' => bcrypt($request->password),
             ]);
 
             $roleUser = Role::where('name', 'User')->first();
@@ -46,7 +46,7 @@ class RegisterController extends Controller
             auth()->login($user, true);
 
             return new SuccessResource(true, 'Pendaftaran berhasil', [
-                'redirect' => route('home')
+                'redirect' => route('home'),
             ]);
         } catch (\Exception $e) {
             return new ErrorResource(false, $e->getMessage(), 500);
