@@ -58,7 +58,7 @@ class User extends Authenticatable
 
     public function avatar(): Attribute
     {
-        return Attribute::make(get: fn ($avatar) => $avatar ? asset('storage/profile/', $avatar) : null);
+        return Attribute::make(get: fn($avatar) => $avatar ? asset('storage/avatar/' . $avatar) : null);
     }
 
     public function profile()
