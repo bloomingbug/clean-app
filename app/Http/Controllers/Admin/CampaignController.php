@@ -22,7 +22,8 @@ class CampaignController extends Controller
     {
         if ($request->wantsJson()) {
             $campaigns = Campaign::with(['city.province', 'proposedBy'])
-                ->latest()
+                ->orderBy('vote', 'DESC')
+                ->orderBy('title', 'ASC')
                 ->get();
 
             return DataTables::of($campaigns)
@@ -34,7 +35,7 @@ class CampaignController extends Controller
                     return $campaign->proposedBy->name;
                 })
                 ->addColumn('location', function (Campaign $campaign) {
-                    return $campaign->city->name.', '.$campaign->city->province->name;
+                    return $campaign->city->name . ', ' . $campaign->city->province->name;
                 })
                 ->addColumn('date', function (Campaign $campaign) {
                     return $campaign->created_at->format('d F Y');
@@ -87,11 +88,11 @@ class CampaignController extends Controller
         $fileName = $campaign->getRawOriginal('cover');
         if ($request->hasFile('cover')) {
             if ($campaign->getRawOriginal('cover') != null) {
-                Storage::disk('local')->delete('/public/media/'.$campaign->getRawOriginal('cover'));
+                Storage::disk('local')->delete('/public/media/' . $campaign->getRawOriginal('cover'));
             }
 
             $file = $request->file('cover');
-            $fileName = date('YmdHis').'-campaign-'.Str::slug(strtoupper($request->title)).'.'.$file->getClientOriginalExtension();
+            $fileName = date('YmdHis') . '-campaign-' . Str::slug(strtoupper($request->title)) . '.' . $file->getClientOriginalExtension();
             $file->storeAs('/public/media', $fileName);
         }
 

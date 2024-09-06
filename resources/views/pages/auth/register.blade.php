@@ -2,7 +2,7 @@
     <div class="col-12 col-md-6 col-lg-4">
         <div class="card rounded-3">
             <div class="card-body d-flex justify-content-center flex-column">
-                <img src="{{ asset('images/Log-Clean-App2.png') }}" alt="Logo CleanApp" class="logo-disdik mx-auto" />
+                <img src="{{ asset('images/logo.png') }}" alt="Logo CleanApp" class="logo-disdik mx-auto" />
                 <hr />
 
                 <h6 class="card-title text-center fs-6 fw-semibold mb-3">Yuk, Daftarkan Dirimu <br> Mari Berkontribusi
