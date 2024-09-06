@@ -15,6 +15,15 @@
     </section>
 
     <section class="row mt-3 mt-md-4">
+        @if(request('transaction_status'))
+        <div class="alert alert-success">
+            <p class="m-0">
+                Pembayaran donasi dengan nomor {{ request('order_id') ?? '-' }}
+                <span class="fw-bold">berhasil</span>
+            </p>
+        </div>
+        @endif
+
         @forelse ($campaigns as $campaign)
         <x-elements.card.donation :slug="$campaign->slug" :cover="$campaign->cover" :totalFund="$campaign->total_fund"
             :targetFund="$campaign->target_fund" :title="$campaign->title" :date="$campaign->due_date_fund"

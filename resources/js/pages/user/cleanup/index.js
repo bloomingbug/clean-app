@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.js";
 import * as bootstrap from "bootstrap";
 
 import $ from "jquery";
+import marker from "../../../../assets/icons/marker.svg";
 
 $.ajaxSetup({
     headers: {
@@ -45,12 +46,28 @@ window.handleVote = function handleVote(slug) {
 };
 
 $(document).ready(function () {
-    var map = L.map("map").setView([-3, 115], 5);
+    let indonesiaBounds = [
+        [-11, 95],
+        [6, 141],
+    ];
+
+    var map = L.map("map", {
+        maxBounds: indonesiaBounds,
+        maxBoundsViscosity: 1.0,
+        minZoom: 5,
+    }).setView([-3, 115], 5);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
             "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
     }).addTo(map);
+
+    var customIcon = L.icon({
+        iconUrl: marker,
+        iconSize: [25, 34],
+        iconAnchor: [19, 38],
+        popupAnchor: [0, -38],
+    });
 
     $.ajax({
         url: "/campaign/location",
@@ -58,10 +75,12 @@ $(document).ready(function () {
         success: function (response) {
             if (response.success && response.data.length > 0) {
                 response.data.forEach(function (campaign) {
-                    var marker = L.marker([
-                        campaign.latitude,
-                        campaign.longitude,
-                    ])
+                    let marker = L.marker(
+                        [campaign.latitude, campaign.longitude],
+                        {
+                            icon: customIcon,
+                        },
+                    )
                         .addTo(map)
                         .bindPopup(
                             `<a id="campaign-${campaign.slug}" href="#" class="popup-link text-decoration-none">

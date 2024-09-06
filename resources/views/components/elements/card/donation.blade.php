@@ -7,7 +7,7 @@
         <div class="card-body">
             <div class="progress mb-3" role="progressbar">
                 <div class="progress-bar" style="width: {{ $percentage }}%">
-                    {{ $totalFund ?? '0' }}
+                    Menuju {{ $targetFund ? 'Rp'.$targetFund : 'Rp0' }}
                 </div>
             </div>
             <h5 class="mb-1 fw-bold">{{ $title }}</h5>

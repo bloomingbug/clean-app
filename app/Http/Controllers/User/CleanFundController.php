@@ -18,7 +18,6 @@ class CleanFundController extends Controller
         \Midtrans\Config::$isSanitized = config('services.midtrans.isSanitized');
         \Midtrans\Config::$is3ds = config('services.midtrans.is3ds');
 
-        $this->middleware('permission:cleanfund.index')->only('index');
         $this->middleware('permission:cleanfund.donate')->only('store');
     }
 
@@ -41,7 +40,7 @@ class CleanFundController extends Controller
         $request->validate([
             'slug' => ['required', 'exists:campaigns,slug'],
             'amount' => ['required', 'numeric', 'min:5000'],
-            'message' => ['required', 'string'],
+            'message' => ['sometimes', 'nullable', 'string'],
             'is_anonymous' => ['sometimes', 'nullable', 'boolean'],
         ]);
 
@@ -97,7 +96,8 @@ class CleanFundController extends Controller
             return redirect($paymentUrl);
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->withInput()->withErrors(['slug' => 'Donation failed to create: ' . $e->getMessage()]);
+            return redirect()->back()->withInput()
+                ->withErrors(['slug' => 'Donation failed to create']);
         }
     }
 
@@ -120,6 +120,9 @@ class CleanFundController extends Controller
         try {
             DB::beginTransaction();
             $data_donation = Funding::where('no', $orderId)->first();
+            if (!$data_donation) {
+                return response(['message' => 'Donation not found'], 404);
+            }
 
             if ($transaction == 'capture') {
                 if ($type == 'credit_card') {
@@ -155,13 +158,19 @@ class CleanFundController extends Controller
                 ]);
             }
 
-            $data_donation->campaign->update([
-                'total_donation' => $data_donation->campaign->total_donation + $data_donation->amount
-            ]);
+            if ($data_donation->status == 'success') {
+                $campaign = $data_donation->campaign()->lockForUpdate()->first();
+
+                $campaign->update([
+                    'total_fund' => $campaign->total_fund + $data_donation->amount
+                ]);
+            }
 
             DB::commit();
+            return response(['message' => 'Donation updated successfully'], 200);
         } catch (\Exception $e) {
             DB::rollBack();
+            return response(['message' => 'Failed to update donation'], 500);
         }
     }
 }

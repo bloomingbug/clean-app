@@ -34,8 +34,8 @@ class Donation extends Component
         $this->title = $title;
         $this->cover = $cover;
         $this->slug = $slug;
-        $this->totalFund = $totalFund;
-        $this->targetFund = $targetFund;
+        $this->totalFund = number_format($totalFund, 0, ',', '.');
+        $this->targetFund = number_format($targetFund, 0, ',', '.');
         $this->percentage = $totalFund >= $targetFund ? 100 : ($totalFund / $targetFund) * 100;
         $this->date = Carbon::parse($date)->translatedFormat('d F Y');
         $this->city = $city;

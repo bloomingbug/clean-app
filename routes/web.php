@@ -34,7 +34,7 @@ Route::put('/campaign/{campaign}/vote', [CleanUpController::class, 'vote'])->nam
 
 Route::get('/cleanfund', [CleanFundController::class, 'index'])->name('cleanfund.index');
 Route::post('/cleanfund', [CleanFundController::class, 'store'])->name('cleanfund.store')->middleware('auth');
-Route::post('/webhook', [CleanFundController::class, 'update'])->name('cleanfund.update');
+// Route::post('/webhook', [CleanFundController::class, 'update'])->name('cleanfund.update');
 
 Route::get('/cleanact', [CleanActController::class, 'index'])->name('cleanact.index');
 

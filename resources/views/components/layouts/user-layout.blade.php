@@ -46,7 +46,7 @@
 
             <!-- Dashboard Content -->
             <div class="col-lg-9">
-                <div class="row">
+                <div class="row d-flex justify-content-center">
                     {{ $slot }}
                 </div>
 
