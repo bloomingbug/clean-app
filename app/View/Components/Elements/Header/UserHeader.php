@@ -9,9 +9,12 @@ use Illuminate\View\Component;
 class UserHeader extends Component
 {
     public $user;
-    public string | null $title;
-    public string | null $description;
-    public function __construct(string $title = null, string $description = null)
+
+    public ?string $title;
+
+    public ?string $description;
+
+    public function __construct(?string $title = null, ?string $description = null)
     {
         $this->title = $title;
         $this->user = auth()->user();

@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Models\Funding;
 use App\Models\Province;
-use Illuminate\Support\Str;
+use App\Models\Volunteer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class CleanUpController extends Controller
@@ -21,11 +22,12 @@ class CleanUpController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            $campaigns = Campaign::where('is_approved', true)
-                ->with(['city.province', 'votes'])
+            $campaigns = Campaign::with(['city.province', 'votes'])
+                ->whereNot('is_approved', 1)->orWhere('is_approved', null)
                 ->orderBy('vote', 'DESC')
                 ->orderBy('title', 'ASC')
                 ->get();
+
             return DataTables::of($campaigns)
                 ->addIndexColumn()
                 ->addColumn('cityAndProvince', function (Campaign $campaign) {
@@ -39,17 +41,20 @@ class CleanUpController extends Controller
                             return '<button class="btn btn-outline-primary btn-sm" onClick="handleVote(\'' . $campaign->slug . '\')" >Vote</button>';
                         }
                     }
+
                     return '<button class="btn btn-outline-primary btn-sm" onClick="handleVote(\'' . $campaign->slug . '\')" >Vote</button>';
                 })
                 ->rawColumns(['vote'])
                 ->make(true);
         }
+
         return view('pages.user.cleanup.index');
     }
 
     public function create()
     {
         $provinces = Province::select(['id', 'name'])->get();
+
         return view('pages.user.cleanup.create', compact('provinces'));
     }
 
@@ -61,7 +66,7 @@ class CleanUpController extends Controller
             'cover' => ['required', 'image', 'max:2048'],
             'location' => ['required', 'regex:/^-?\d+(\.\d+)?,\s?-?\d+(\.\d+)?$/'],
             'city_id' => ['required', 'exists:cities,id'],
-            'address' => ['required', 'string']
+            'address' => ['required', 'string'],
         ]);
 
         $file = $request->file('cover');
@@ -69,7 +74,7 @@ class CleanUpController extends Controller
         $file->storeAs('/public/media', $fileName);
 
         $slug = generateSlug(Campaign::class, $request->title, 'slug');
-        $getLatLong = explode(",", $request->location);
+        $getLatLong = explode(',', $request->location);
 
         Campaign::create([
             'title' => $request->title,
@@ -84,9 +89,9 @@ class CleanUpController extends Controller
         ]);
 
         flash()->success('Campaign berhasil ditambahkan');
+
         return redirect()->route('home');
     }
-
 
     public function show(Campaign $campaign)
     {
@@ -95,23 +100,24 @@ class CleanUpController extends Controller
             ->where('campaign_id', $campaign->id)
             ->where('status', 'success')
             ->latest()
-            ->limit(10);
+            ->limit(10)
+            ->get();
+        $ticket = Volunteer::where('campaign_id', $campaign->id)->where('user_id', auth()->id())->first();
 
-        return view('pages.user.cleanup.show', compact('campaign', 'fundings'));
+        return view('pages.user.cleanup.show', compact('campaign', 'fundings', 'ticket'));
     }
 
     public function location()
     {
-
-        $campaigns = Campaign::select(['title', 'slug', 'cover', 'description', 'latitude', 'longitude', 'address', 'city_id', 'proposed_by_id'])
-            ->where('approved_by', null)
+        $campaigns = Campaign::select(['title', 'slug', 'cover', 'description', 'latitude', 'longitude', 'address', 'city_id', 'proposed_by_id', 'is_approved'])
+            ->whereNot('is_approved', 1)->orWhere('is_approved', null)
             ->with(['city.province', 'proposedBy'])
             ->get();
 
         return response()->json([
             'success' => true,
             'status' => 200,
-            'data' => $campaigns
+            'data' => $campaigns,
         ], 200);
     }
 
@@ -121,11 +127,11 @@ class CleanUpController extends Controller
             DB::beginTransaction();
 
             $campaign = Campaign::where('slug', $campaign)->first();
-            if (!$campaign) {
+            if (! $campaign) {
                 return response()->json([
                     'success' => false,
                     'status' => 404,
-                    'message' => 'Campaign tidak ditemukan'
+                    'message' => 'Campaign tidak ditemukan',
                 ], 404);
             }
 
@@ -133,26 +139,25 @@ class CleanUpController extends Controller
 
             if ($vote) {
                 $campaign->update([
-                    'vote' => $campaign->vote - 1
+                    'vote' => $campaign->vote - 1,
                 ]);
                 $vote->delete();
             } else {
                 $campaign->update([
-                    'vote' => $campaign->vote + 1
+                    'vote' => $campaign->vote + 1,
                 ]);
                 $campaign->votes()->create([
                     'name' => auth()->user()->name,
-                    'user_id' => auth()->user()->id
+                    'user_id' => auth()->user()->id,
                 ]);
             }
-
 
             DB::commit();
 
             return response()->json([
                 'success' => true,
                 'status' => 200,
-                'message' => 'Berhasil vote campaign'
+                'message' => 'Berhasil vote campaign',
             ], 200);
         } catch (\Exception $e) {
             DB::rollBack();

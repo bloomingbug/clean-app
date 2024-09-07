@@ -24,3 +24,18 @@
 .text-justify {
     text-align: justify !important;
 }
+
+.text-link {
+    color: rgba(var(--bs-body-color-rgb), 0.75) !important;
+    text-decoration: none;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+
+    &:hover {
+        color: var(--bs-primary) !important;
+        text-decoration: none;
+    }
+}

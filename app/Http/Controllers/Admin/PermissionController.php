@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Yajra\DataTables\Facades\DataTables;
-use Yajra\DataTables\Html\Button;
 
 class PermissionController extends Controller
 {
@@ -19,6 +18,7 @@ class PermissionController extends Controller
     {
         if ($request->wantsJson()) {
             $permissions = Permission::orderBy('name', 'asc')->get();
+
             return DataTables::of($permissions)
                 ->addIndexColumn()
                 ->make(true);

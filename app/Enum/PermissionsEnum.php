@@ -25,17 +25,16 @@ enum PermissionsEnum: string
     case CAMPAIGN_ACT = 'campaign.act';
     case CAMPAIGN_DELETE = 'campaign.delete';
     case REPORT_INDEX = 'report.index';
-    case CLEANUP_INDEX = 'cleanup.index';
-    case CLEANUP_DETAIL = 'cleanup.detail';
-    case CLEANUP_ADD = 'cleanup.add';
-    case CLEANUP_VOTE = 'cleanup.vote';
-    case CLEANFUND_INDEX = 'cleanfund.index';
-    case CLEANFUND_DETAIL = 'cleanfund.detail';
-    case CLEANFUND_DONATE = 'cleanfund.donate';
-    case CLEANACT_INDEX = 'cleanact.index';
-    case CLEANACT_DETAIL = 'cleanact.detail';
-    case CLEANACT_REGISTER = 'cleanact.register';
-
+    // case CLEANUP_INDEX = 'cleanup.index';
+    // case CLEANUP_DETAIL = 'cleanup.detail';
+    // case CLEANUP_ADD = 'cleanup.add';
+    // case CLEANUP_VOTE = 'cleanup.vote';
+    // case CLEANFUND_INDEX = 'cleanfund.index';
+    // case CLEANFUND_DETAIL = 'cleanfund.detail';
+    // case CLEANFUND_DONATE = 'cleanfund.donate';
+    // case CLEANACT_INDEX = 'cleanact.index';
+    // case CLEANACT_DETAIL = 'cleanact.detail';
+    // case CLEANACT_REGISTER = 'cleanact.register';
 
     public static function getPermissions(): array
     {
@@ -61,53 +60,53 @@ enum PermissionsEnum: string
             self::CAMPAIGN_ACT,
             self::CAMPAIGN_DELETE,
             self::REPORT_INDEX,
-            self::CLEANUP_INDEX,
-            self::CLEANUP_DETAIL,
-            self::CLEANUP_ADD,
-            self::CLEANUP_VOTE,
-            self::CLEANFUND_INDEX,
-            self::CLEANFUND_DETAIL,
-            self::CLEANFUND_DONATE,
-            self::CLEANACT_INDEX,
-            self::CLEANACT_DETAIL,
-            self::CLEANACT_REGISTER,
+            // self::CLEANUP_INDEX,
+            // self::CLEANUP_DETAIL,
+            // self::CLEANUP_ADD,
+            // self::CLEANUP_VOTE,
+            // self::CLEANFUND_INDEX,
+            // self::CLEANFUND_DETAIL,
+            // self::CLEANFUND_DONATE,
+            // self::CLEANACT_INDEX,
+            // self::CLEANACT_DETAIL,
+            // self::CLEANACT_REGISTER,
         ];
     }
 
     public function label(): string
     {
         return match ($this) {
-            static::PERMISSION_INDEX => 'permission.index',
-            static::ROLE_INDEX => 'role.index',
-            static::ROLE_ADD => 'role.add',
-            static::ROLE_EDIT => 'role.edit',
-            static::ROLE_DELETE => 'role.delete',
-            static::USER_INDEX => 'user.index',
-            static::USER_CREATE => 'user.create',
-            static::USER_VERIF => 'user.verif',
-            static::USER_CHANGE_PASSWORD => 'user.change-password',
-            static::USER_DETAIL => 'user.detail',
-            static::USER_EDIT => 'user.edit',
-            static::USER_DELETE => 'user.delete',
-            static::CAMPAIGN_INDEX => 'campaign.index',
-            static::CAMPAIGN_DETAIL => 'campaign.detail',
-            static::CAMPAIGN_ADD => 'campaign.add',
-            static::CAMPAIGN_EDIT => 'campaign.edit',
-            static::CAMPAIGN_APPROVE => 'campaign.approve',
-            static::CAMPAIGN_FUND => 'campaign.fund',
-            static::CAMPAIGN_ACT => 'campaign.act',
-            static::CAMPAIGN_DELETE => 'campaign.delete',
-            static::REPORT_INDEX => 'report.index',
-            static::CLEANUP_INDEX => 'cleanup.index',
-            static::CLEANUP_DETAIL => 'cleanup.detail',
-            static::CLEANUP_ADD => 'cleanup.add',
-            static::CLEANUP_VOTE => 'cleanup.vote',
-            static::CLEANFUND_INDEX => 'cleanfund.index',
-            static::CLEANFUND_DETAIL => 'cleanfund.detail',
-            static::CLEANFUND_DONATE => 'cleanfund.donate',
-            static::CLEANACT_INDEX => 'cleanact.index',
-            static::CLEANACT_DETAIL => 'cleanact.detail',
-            static::CLEANACT_REGISTER => 'cleanact.register',
+            self::PERMISSION_INDEX => 'permission.index',
+            self::ROLE_INDEX => 'role.index',
+            self::ROLE_ADD => 'role.add',
+            self::ROLE_EDIT => 'role.edit',
+            self::ROLE_DELETE => 'role.delete',
+            self::USER_INDEX => 'user.index',
+            self::USER_CREATE => 'user.create',
+            self::USER_VERIF => 'user.verif',
+            self::USER_CHANGE_PASSWORD => 'user.change-password',
+            self::USER_DETAIL => 'user.detail',
+            self::USER_EDIT => 'user.edit',
+            self::USER_DELETE => 'user.delete',
+            self::CAMPAIGN_INDEX => 'campaign.index',
+            self::CAMPAIGN_DETAIL => 'campaign.detail',
+            self::CAMPAIGN_ADD => 'campaign.add',
+            self::CAMPAIGN_EDIT => 'campaign.edit',
+            self::CAMPAIGN_APPROVE => 'campaign.approve',
+            self::CAMPAIGN_FUND => 'campaign.fund',
+            self::CAMPAIGN_ACT => 'campaign.act',
+            self::CAMPAIGN_DELETE => 'campaign.delete',
+            self::REPORT_INDEX => 'report.index',
+            // self::CLEANUP_INDEX => 'cleanup.index',
+            // self::CLEANUP_DETAIL => 'cleanup.detail',
+            // self::CLEANUP_ADD => 'cleanup.add',
+            // self::CLEANUP_VOTE => 'cleanup.vote',
+            // self::CLEANFUND_INDEX => 'cleanfund.index',
+            // self::CLEANFUND_DETAIL => 'cleanfund.detail',
+            // self::CLEANFUND_DONATE => 'cleanfund.donate',
+            // self::CLEANACT_INDEX => 'cleanact.index',
+            // self::CLEANACT_DETAIL => 'cleanact.detail',
+            // self::CLEANACT_REGISTER => 'cleanact.register',
         };
     }
 }

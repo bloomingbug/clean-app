@@ -8,9 +8,11 @@ use Illuminate\View\Component;
 
 class AdminLayout extends Component
 {
-    public string | null $title;
+    public ?string $title;
+
     public array $vite = ['resources/js/app.js', 'resources/js/components/layouts/admin.js'];
-    public function __construct(string $title = null, array $vite = [])
+
+    public function __construct(?string $title = null, array $vite = [])
     {
         $this->title = $title;
         $this->vite = array_merge($this->vite, $vite);

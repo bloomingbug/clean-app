@@ -13,7 +13,7 @@ enum RolesEnum: string
         return [
             self::ADMIN,
             self::SUPERADMIN,
-            self::USER
+            self::USER,
         ];
     }
 
@@ -21,23 +21,23 @@ enum RolesEnum: string
     {
         return [
             self::ADMIN,
-            self::SUPERADMIN
+            self::SUPERADMIN,
         ];
     }
 
     public static function getUserRoles(): array
     {
         return [
-            self::USER
+            self::USER,
         ];
     }
 
     public function label(): string
     {
         return match ($this) {
-            static::ADMIN => 'Admin',
-            static::SUPERADMIN => 'Super Admin',
-            static::USER => 'User',
+            self::ADMIN => 'Admin',
+            self::SUPERADMIN => 'Super Admin',
+            self::USER => 'User',
         };
     }
 }

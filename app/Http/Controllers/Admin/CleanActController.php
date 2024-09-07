@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class CleanActController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('permission:campaign.act')->only('edit', 'update');
@@ -32,6 +31,7 @@ class CleanActController extends Controller
         ]);
 
         flash()->success('Data berhasil diupdate');
+
         return redirect()->route('admin.campaign.index')->with('success', 'Data berhasil diupdate');
     }
 }

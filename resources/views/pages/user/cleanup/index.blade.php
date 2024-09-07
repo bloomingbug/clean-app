@@ -14,7 +14,7 @@
             </div>
 
             <div class="modal" id="campaignModal" tabindex="-1">
-                <div class="modal-dialog border-0 rounded-3">
+                <div class="modal-dialog modal-dialog-scrollable border-0 rounded-3">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="campaignModalTitle">Campaign Title</h5>
@@ -41,17 +41,19 @@
                 passing grade, semakin besar kemungkinan campaign dapat dijadikan sebagai lokasi CleanUp.
             </p>
 
-            <div class="table-responsive">
-                <table id="campaign" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Lokasi</th>
-                            <th>Vote</th>
-                        </tr>
-                    </thead>
-                </table>
+            <div class="row">
+                <div class="table-responsive">
+                    <table id="campaign" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Lokasi</th>
+                                <th>Vote</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </section>

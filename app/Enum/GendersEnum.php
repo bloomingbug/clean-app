@@ -11,15 +11,15 @@ enum GendersEnum: string
     {
         return [
             self::MALE,
-            self::FEMALE
+            self::FEMALE,
         ];
     }
 
     public function label(): string
     {
         return match ($this) {
-            static::MALE => 'M',
-            static::FEMALE => 'F',
+            self::MALE => 'M',
+            self::FEMALE => 'F',
         };
     }
 }

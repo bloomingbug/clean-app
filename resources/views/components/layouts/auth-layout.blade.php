@@ -29,8 +29,11 @@
 </head>
 
 <body class="auth-page">
-    <main class="container-fluid row d-flex justify-content-center align-items-center">
-        {{ $slot }}
+    <main class="container-fluid">
+        <div class="row d-flex justify-content-center align-items-center">
+            {{ $slot }}
+
+        </div>
     </main>
 
     <img src="/images/login-illustration.webp" alt="" class="illustration">
